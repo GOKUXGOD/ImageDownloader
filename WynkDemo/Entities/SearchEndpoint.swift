@@ -9,6 +9,6 @@
 import Foundation
 
 public struct SearchEndpoint: Endpoint {
-    var url: URL
+    var url: URL 
     var httpMethod: String
 }

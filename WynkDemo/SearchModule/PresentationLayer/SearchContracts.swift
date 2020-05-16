@@ -44,7 +44,7 @@ public protocol SearchResultsPresenterProtocol {
 public protocol SearchResultsInteractorInputProtocol {
     var presenter: SearchResultsInteractorOutputProtocol? { get set }
 
-    func performSearchFor(_ text: String, offset: Int?, size: Int?)
+    func performSearchFor(_ text: String, offset: Int, size: Int)
 }
 
 // MARK: - Interactor to Presenter

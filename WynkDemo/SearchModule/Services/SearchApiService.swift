@@ -16,13 +16,14 @@ public final class SearchApiService: SearchApiServiceProtocol {
     }
 
     public func fetchSearchResult(endpoint: SearchEndpoint, success: ((SearchData) -> Void)?, failure: ((APIError) -> Void)?) {
-        networkService.getFeed(endpoint: endpoint) { [weak self] result in
+        networkService.getFeed(endpoint: endpoint) { result in
             switch result {
-            case .success:
-                success
-            case .failure:
-                failure
+            case .success(let items):
+                success?(items!)
+            case .failure(let error):
+                failure?(error)
             }
         }
     }
 }
+

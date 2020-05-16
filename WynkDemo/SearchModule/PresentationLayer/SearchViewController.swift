@@ -35,12 +35,13 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
     }
 
     private func setUpSearchController() {
-//        searchController.searchResultsUpdater = self
-//        searchController.obscuresBackgroundDuringPresentation = false
-//        searchController.searchBar.placeholder = "Search Candies"
-//        navigationItem.titleView = searchController.searchBar
-//        searchController.hidesNavigationBarDuringPresentation = false
-//        definesPresentationContext = true
+       // searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Candies"
+        navigationItem.titleView = searchController.searchBar
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.delegate = self
+        definesPresentationContext = true
     }
 
     func setUpView(with viewModel: SearchViewModel) {
@@ -53,10 +54,22 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
     }
 }
 
-extension SearchViewController: UISearchResultsUpdating {
-  func updateSearchResults(for searchController: UISearchController) {
-    if let text = searchController.searchBar.text {
-        presenter.searchText(text)
+ //extension SearchViewController: UISearchResultsUpdating {
+//  func updateSearchResults(for searchController: UISearchController) {
+//    if let text = searchController.searchBar.text {
+//        presenter.searchText(text)
+//    }
+//  }
+//}
+
+extension SearchViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
     }
-  }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let text = searchBar.text {
+            presenter.searchText(text)
+        }
+    }
 }

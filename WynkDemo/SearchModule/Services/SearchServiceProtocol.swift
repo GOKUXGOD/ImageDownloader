@@ -9,6 +9,9 @@
 import Foundation
 
 public protocol SearchServiceProtocol {
-    func fetchSearchResult(success: ((SearchData) -> Void)?,
+    func fetchSearchResult(searchKey: String,
+                           offset: Int,
+                           size: Int,
+                           success: ((SearchData) -> Void)?,
                            failure: ((APIError) -> Void)?)
 }

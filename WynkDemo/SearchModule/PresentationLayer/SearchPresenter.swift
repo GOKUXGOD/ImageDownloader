@@ -42,7 +42,7 @@ extension SearchPresenter: SearchResultsInteractorOutputProtocol {
         if let data = data {
             let viewModel = SearchViewModel(title: "Search", dataSource: data.photos)
             interface?.setUpView(with: viewModel)
-            offset += size
+           // offset += size
         }
     }
 
