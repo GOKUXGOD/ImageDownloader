@@ -8,7 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		479882A2EAFB7BCE369BA69B /* Pods_WynkDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5C8EC2B186150A5E1370C8B /* Pods_WynkDemo.framework */; };
-		7D9EC90324700B4900C1E500 /* FlickerImagesClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9EC90024700B4900C1E500 /* FlickerImagesClient.swift */; };
+		7D1A83032470222D003B930F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A83022470222D003B930F /* SearchViewController.swift */; };
+		7D1A830524702236003B930F /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A830424702236003B930F /* SearchPresenter.swift */; };
+		7D1A830724702240003B930F /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A830624702240003B930F /* SearchInteractor.swift */; };
+		7D1A83092470224F003B930F /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A83082470224F003B930F /* SearchRouter.swift */; };
+		7D1A833024702A23003B930F /* SearchServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A832F24702A23003B930F /* SearchServiceProtocol.swift */; };
+		7D1A833224702A8D003B930F /* SearchApiServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A833124702A8D003B930F /* SearchApiServiceProtocol.swift */; };
+		7D1A833424702B21003B930F /* SearchApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A833324702B21003B930F /* SearchApiService.swift */; };
+		7D1A833624702D40003B930F /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A833524702D40003B930F /* SearchService.swift */; };
+		7D3236F92470113900D897A7 /* SearchContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3236F82470113900D897A7 /* SearchContracts.swift */; };
+		7D32371F2470126E00D897A7 /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D32371E2470126E00D897A7 /* SearchItem.swift */; };
+		7D323721247013ED00D897A7 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D323720247013ED00D897A7 /* SearchViewModel.swift */; };
+		7D32372324701D6800D897A7 /* SearchEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D32372224701D6800D897A7 /* SearchEndpoint.swift */; };
+		7D9EC90324700B4900C1E500 /* PixabayImagesClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9EC90024700B4900C1E500 /* PixabayImagesClient.swift */; };
 		7D9EC90424700B4900C1E500 /* GenericAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9EC90124700B4900C1E500 /* GenericAPIClient.swift */; };
 		7D9EC90524700B4900C1E500 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9EC90224700B4900C1E500 /* Endpoint.swift */; };
 		7DB9A66E246FFC230061DC46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9A66D246FFC230061DC46 /* AppDelegate.swift */; };
@@ -34,7 +46,19 @@
 /* Begin PBXFileReference section */
 		093CAE41E6A185C7ABCC686B /* Pods-WynkDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WynkDemoTests.release.xcconfig"; path = "Target Support Files/Pods-WynkDemoTests/Pods-WynkDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		3A69BCDBC67F23F3F8B9438C /* Pods-WynkDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WynkDemo.debug.xcconfig"; path = "Target Support Files/Pods-WynkDemo/Pods-WynkDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		7D9EC90024700B4900C1E500 /* FlickerImagesClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickerImagesClient.swift; sourceTree = "<group>"; };
+		7D1A83022470222D003B930F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		7D1A830424702236003B930F /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		7D1A830624702240003B930F /* SearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
+		7D1A83082470224F003B930F /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
+		7D1A832F24702A23003B930F /* SearchServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServiceProtocol.swift; sourceTree = "<group>"; };
+		7D1A833124702A8D003B930F /* SearchApiServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchApiServiceProtocol.swift; sourceTree = "<group>"; };
+		7D1A833324702B21003B930F /* SearchApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchApiService.swift; sourceTree = "<group>"; };
+		7D1A833524702D40003B930F /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		7D3236F82470113900D897A7 /* SearchContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContracts.swift; sourceTree = "<group>"; };
+		7D32371E2470126E00D897A7 /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
+		7D323720247013ED00D897A7 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		7D32372224701D6800D897A7 /* SearchEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEndpoint.swift; sourceTree = "<group>"; };
+		7D9EC90024700B4900C1E500 /* PixabayImagesClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PixabayImagesClient.swift; sourceTree = "<group>"; };
 		7D9EC90124700B4900C1E500 /* GenericAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericAPIClient.swift; sourceTree = "<group>"; };
 		7D9EC90224700B4900C1E500 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		7DB9A66A246FFC230061DC46 /* WynkDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WynkDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,9 +98,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7D1A832D24702A04003B930F /* SearchModule */ = {
+			isa = PBXGroup;
+			children = (
+				7D9EC8D82470047600C1E500 /* PresentationLayer */,
+				7D1A832E24702A13003B930F /* Services */,
+			);
+			path = SearchModule;
+			sourceTree = "<group>";
+		};
+		7D1A832E24702A13003B930F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7D1A832F24702A23003B930F /* SearchServiceProtocol.swift */,
+				7D1A833124702A8D003B930F /* SearchApiServiceProtocol.swift */,
+				7D1A833324702B21003B930F /* SearchApiService.swift */,
+				7D1A833524702D40003B930F /* SearchService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		7D32371D2470123C00D897A7 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				7D32371E2470126E00D897A7 /* SearchItem.swift */,
+				7D323720247013ED00D897A7 /* SearchViewModel.swift */,
+				7D32372224701D6800D897A7 /* SearchEndpoint.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		7D7A97BA2470300200A24BE7 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
 		7D9EC8D82470047600C1E500 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				7D3236F82470113900D897A7 /* SearchContracts.swift */,
+				7D1A83022470222D003B930F /* SearchViewController.swift */,
+				7D1A830424702236003B930F /* SearchPresenter.swift */,
+				7D1A830624702240003B930F /* SearchInteractor.swift */,
+				7D1A83082470224F003B930F /* SearchRouter.swift */,
 			);
 			path = PresentationLayer;
 			sourceTree = "<group>";
@@ -85,7 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				7D9EC90224700B4900C1E500 /* Endpoint.swift */,
-				7D9EC90024700B4900C1E500 /* FlickerImagesClient.swift */,
+				7D9EC90024700B4900C1E500 /* PixabayImagesClient.swift */,
 				7D9EC90124700B4900C1E500 /* GenericAPIClient.swift */,
 			);
 			path = NetworkLayer;
@@ -114,8 +180,10 @@
 		7DB9A66C246FFC230061DC46 /* WynkDemo */ = {
 			isa = PBXGroup;
 			children = (
+				7D7A97BA2470300200A24BE7 /* Assembly */,
+				7D1A832D24702A04003B930F /* SearchModule */,
+				7D32371D2470123C00D897A7 /* Entities */,
 				7D9EC8D92470047E00C1E500 /* NetworkLayer */,
-				7D9EC8D82470047600C1E500 /* PresentationLayer */,
 				7DB9A66D246FFC230061DC46 /* AppDelegate.swift */,
 				7DB9A66F246FFC230061DC46 /* SceneDelegate.swift */,
 				7DB9A671246FFC230061DC46 /* ViewController.swift */,
@@ -330,10 +398,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DB9A672246FFC230061DC46 /* ViewController.swift in Sources */,
-				7D9EC90324700B4900C1E500 /* FlickerImagesClient.swift in Sources */,
+				7D1A83032470222D003B930F /* SearchViewController.swift in Sources */,
+				7D1A833424702B21003B930F /* SearchApiService.swift in Sources */,
+				7D1A830524702236003B930F /* SearchPresenter.swift in Sources */,
+				7D1A830724702240003B930F /* SearchInteractor.swift in Sources */,
+				7D9EC90324700B4900C1E500 /* PixabayImagesClient.swift in Sources */,
+				7D1A833224702A8D003B930F /* SearchApiServiceProtocol.swift in Sources */,
 				7DB9A66E246FFC230061DC46 /* AppDelegate.swift in Sources */,
+				7D32372324701D6800D897A7 /* SearchEndpoint.swift in Sources */,
+				7D1A833624702D40003B930F /* SearchService.swift in Sources */,
+				7D32371F2470126E00D897A7 /* SearchItem.swift in Sources */,
+				7D3236F92470113900D897A7 /* SearchContracts.swift in Sources */,
 				7D9EC90424700B4900C1E500 /* GenericAPIClient.swift in Sources */,
+				7D1A83092470224F003B930F /* SearchRouter.swift in Sources */,
+				7D323721247013ED00D897A7 /* SearchViewModel.swift in Sources */,
 				7D9EC90524700B4900C1E500 /* Endpoint.swift in Sources */,
+				7D1A833024702A23003B930F /* SearchServiceProtocol.swift in Sources */,
 				7DB9A670246FFC230061DC46 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,6 +577,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = WynkDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -515,6 +596,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = WynkDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

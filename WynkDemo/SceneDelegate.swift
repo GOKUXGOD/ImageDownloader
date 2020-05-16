@@ -7,17 +7,60 @@
 //
 
 import UIKit
+import Swinject
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    let container: Container = {
+        let container = Container()
 
+        container.register(SearchApiServiceProtocol.self) { _ in
+            let networkService = PixabayImagesClient()
+            return SearchApiService(networkService: networkService)
+        }
+
+        container.register(SearchServiceProtocol.self) { resolver in
+            let apiService = resolver.resolve(SearchApiServiceProtocol.self)!
+            return SearchService(apiService: apiService)
+        }
+
+        container.register(SearchResultsInteractorInputProtocol.self) { resolver in
+            let searchService = resolver.resolve(SearchServiceProtocol.self)!
+            return SearchInteractor(searchService: searchService)
+        }
+
+        container.register(SearchResultsRouterInputProtocol.self) { _ in
+            return SearchRouter()
+        }
+
+        container.register(SearchResultsPresenterProtocol.self) { resolver in
+            let interactor = resolver.resolve(SearchResultsInteractorInputProtocol.self)!
+            let router = resolver.resolve(SearchResultsRouterInputProtocol.self)!
+            return SearchPresenter(interactor: interactor, router: router)
+        }
+
+        container.register(SearchResultsInterfaceProtocol.self) { resolver in
+            let presenter = resolver.resolve(SearchResultsPresenterProtocol.self)!
+            return SearchViewController(presenter: presenter)
+        }
+
+        return container
+    }()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        self.window = window
+
+        // Instantiate the root view controller with dependencies injected by the container.
+        let rootViewController = UINavigationController(rootViewController: container.resolve(SearchResultsInterfaceProtocol.self) as! UIViewController)
+        window.rootViewController = rootViewController
+        window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
