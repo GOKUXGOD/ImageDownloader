@@ -7,11 +7,18 @@
 //
 
 import Foundation
+import UIKit
 
-public struct SearchItem: Codable {
+public enum SearchItemState {
+  case new, downloaded, failed
+}
+
+public class SearchItem: Codable {
     public let itemID: Int?
     public let normalImageUrl: String?
     public let largeImageUrl: String?
+    public var state = SearchItemState.new
+    public var image: UIImage? = UIImage(named: "placeholder")
 
     enum CodingKeys: String, CodingKey {
         case itemID = "id"

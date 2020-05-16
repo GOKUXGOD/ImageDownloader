@@ -10,14 +10,20 @@ import Foundation
 protocol SearchViewModelProtocol {
     var title: String { get set }
     var dataSource: [SearchItem] { get set }
+    var placeholder: String { get set }
+    var reuseIdentifier: String { get set }
 }
 
 public struct SearchViewModel: SearchViewModelProtocol {
     var title: String
     var dataSource: [SearchItem]
+    var placeholder: String
+    var reuseIdentifier: String
 
-    init(title: String, dataSource: [SearchItem]) {
+    init(title: String, dataSource: [SearchItem], placeholder: String, reuseIdentifier: String) {
         self.title = title
         self.dataSource = dataSource
+        self.placeholder = placeholder
+        self.reuseIdentifier = reuseIdentifier
     }
 }
