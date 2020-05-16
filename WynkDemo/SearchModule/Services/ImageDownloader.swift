@@ -13,16 +13,18 @@ public class PendingOperations {
     lazy var downloadsInProgress: [IndexPath: Operation] = [:]
     lazy var downloadQueue: OperationQueue = {
         var queue = OperationQueue()
-        queue.name = "Download queue"
-        queue.maxConcurrentOperationCount = 1
+        queue.name = "com.Wynk.demo"
         return queue
     }()
     
+    func cancelAllOperations(){
+        downloadQueue.cancelAllOperations()
+    }
 }
 
 public class ImageDownloader: Operation {
     var searchItem: SearchItem
-
+    let imageCache = NSCache<NSString, UIImage>()
     init(_ photoRecord: SearchItem) {
         self.searchItem = photoRecord
     }

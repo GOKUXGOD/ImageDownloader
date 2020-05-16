@@ -22,7 +22,7 @@ public class SearchItem: Codable {
 
     enum CodingKeys: String, CodingKey {
         case itemID = "id"
-        case normalImageUrl = "webformatURL"
+        case normalImageUrl = "previewURL"
         case largeImageUrl = "largeImageURL"
     }
 }

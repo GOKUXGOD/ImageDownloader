@@ -12,11 +12,7 @@ import UIKit
 class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
     var presenter: SearchResultsPresenterProtocol
     let reuseIdentifier = "SearchCell"
-    private var dataSource: [SearchItem] = [] {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
+    private var dataSource: [SearchItem] = []
 
     private var viewModel: SearchViewModel!
     private let pendingOperations = PendingOperations()
@@ -105,23 +101,54 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
         centerLoader.stopAnimating()
         self.viewModel = viewModel
         title = viewModel.title
-        dataSource = viewModel.dataSource
+        if dataSource.isEmpty {
+            dataSource = viewModel.dataSource
+            collectionView.reloadData()
+        } else {
+            setUpPaginationData(items: viewModel.dataSource)
+        }
     }
 
-    private func startOperations(for searchItem: SearchItem, at indexPath: IndexPath) {
+    private func setUpPaginationData(items: [SearchItem]) {
+        let indexPathsToReload = calculateIndexPathToReloadFrom(newAssets: items)
+        dataSource.append(contentsOf: items)
+        collectionView.performBatchUpdates({
+            collectionView.insertItems(at: indexPathsToReload)
+        }, completion: nil)
+    }
+
+    private func calculateIndexPathToReloadFrom(newAssets: [SearchItem]) -> [IndexPath] {
+        let startIndex = dataSource.count
+        let endIndex = startIndex + newAssets.count
+
+        return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
+    }
+
+    private func startOperations(for searchItem: SearchItem, at indexPath: IndexPath, increasePriority: Bool) {
         switch (searchItem.state) {
         case .new:
             startDownload(for: searchItem, at: indexPath)
+            if increasePriority {
+                self.increasePriority(for: searchItem, at: indexPath)
+            }
         case .downloaded, .failed:
             print("nothing required")
         }
+    }
+
+    func increasePriority(for searchItem: SearchItem, at indexPath: IndexPath) {
+        guard let operation = pendingOperations.downloadsInProgress[indexPath] else {
+            return
+        }
+        operation.queuePriority = .veryHigh
+        print("priority Increased")
     }
 
     func startDownload(for searchItem: SearchItem, at indexPath: IndexPath) {
       guard pendingOperations.downloadsInProgress[indexPath] == nil else {
         return
       }
-
+     
       let downloader = ImageDownloader(searchItem)
       downloader.completionBlock = {
         if downloader.isCancelled {
@@ -148,6 +175,9 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
 extension SearchViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
+        dataSource = []
+        collectionView.reloadData()
+        pendingOperations.cancelAllOperations()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -169,12 +199,26 @@ extension SearchViewController: UICollectionViewDataSource {
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? SearchResultsCell {
-            let assetDetails = dataSource[indexPath.row]
+            return cell
+        }
+        fatalError()
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if dataSource.count == indexPath.row + 1, let text = searchController.searchBar.text {
+            presenter.searchText(text)
+        }
+        
+        let assetDetails = dataSource[indexPath.row]
+        if let cell = cell as? SearchResultsCell {
             switch assetDetails.state {
             case .new:
                 cell.loader.startAnimating()
                 if !collectionView.isDragging && !collectionView.isDecelerating {
-                    startOperations(for: assetDetails, at: indexPath)
+                    startOperations(for: assetDetails, at: indexPath, increasePriority: false)
                 }
                 cell.imageView.image = UIImage(named: "placeholder")
                 cell.loader.startAnimating()
@@ -185,16 +229,68 @@ extension SearchViewController: UICollectionViewDataSource {
                 cell.loader.stopAnimating()
                 cell.imageView.image = UIImage(named: "failed")
             }
-            return cell
         }
-        fatalError()
     }
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let operation = pendingOperations.downloadsInProgress[indexPath] {
+            operation.queuePriority = .veryLow
+            print("priority decreases")
+        }
     }
-
 }
 
 extension SearchViewController: UICollectionViewDelegate {
-    
+}
+
+extension SearchViewController {
+    // MARK: - scrollview delegate methods
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+       suspendAllOperations()
+     }
+     
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+       if !decelerate {
+         loadImagesForOnscreenCells()
+         resumeAllOperations()
+       }
+     }
+     
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+       loadImagesForOnscreenCells()
+       resumeAllOperations()
+     }
+     
+     // MARK: - operation management
+
+    func suspendAllOperations() {
+       pendingOperations.downloadQueue.isSuspended = true
+     }
+     
+    func resumeAllOperations() {
+       pendingOperations.downloadQueue.isSuspended = false
+     }
+     
+    func loadImagesForOnscreenCells() {
+        let pathsArray = collectionView.indexPathsForVisibleItems
+        let allPendingOperations = Set(pendingOperations.downloadsInProgress.keys)
+
+        var toBeCancelled = allPendingOperations
+        let visiblePaths = Set(pathsArray)
+        toBeCancelled.subtract(visiblePaths)
+
+        var toBeStarted = visiblePaths
+        toBeStarted.subtract(allPendingOperations)
+        for indexPath in toBeCancelled {
+            if let pendingDownload = pendingOperations.downloadsInProgress[indexPath] {
+                pendingDownload.cancel()
+            }
+
+            pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)
+        }
+        for indexPath in pathsArray {
+            let recordToProcess = dataSource[indexPath.row]
+            startOperations(for: recordToProcess, at: indexPath, increasePriority: true)
+        }
+    }
 }

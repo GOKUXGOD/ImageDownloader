@@ -33,6 +33,7 @@
 		7DB9A677246FFC240061DC46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB9A676246FFC240061DC46 /* Assets.xcassets */; };
 		7DB9A67A246FFC240061DC46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DB9A678246FFC240061DC46 /* LaunchScreen.storyboard */; };
 		7DB9A685246FFC240061DC46 /* WynkDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9A684246FFC240061DC46 /* WynkDemoTests.swift */; };
+		7DFE1F87247075A600F078DB /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DFE1F86247075A600F078DB /* Swinject.framework */; };
 		C4D67DF39116FEA5928A137A /* Pods_WynkDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ADB475DBC1D44912C305F9 /* Pods_WynkDemoTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		7DB9A680246FFC240061DC46 /* WynkDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WynkDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DB9A684246FFC240061DC46 /* WynkDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WynkDemoTests.swift; sourceTree = "<group>"; };
 		7DB9A686246FFC240061DC46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7DFE1F86247075A600F078DB /* Swinject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Swinject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91ADB475DBC1D44912C305F9 /* Pods_WynkDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WynkDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDDBF41D9C0BCD8BC84A64D2 /* Pods-WynkDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WynkDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-WynkDemoTests/Pods-WynkDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E79739FC81E915EF763CFBB2 /* Pods-WynkDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WynkDemo.release.xcconfig"; path = "Target Support Files/Pods-WynkDemo/Pods-WynkDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				479882A2EAFB7BCE369BA69B /* Pods_WynkDemo.framework in Frameworks */,
+				7DFE1F87247075A600F078DB /* Swinject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +227,7 @@
 		B90955EE2512F4E1032B8B56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7DFE1F86247075A600F078DB /* Swinject.framework */,
 				F5C8EC2B186150A5E1370C8B /* Pods_WynkDemo.framework */,
 				91ADB475DBC1D44912C305F9 /* Pods_WynkDemoTests.framework */,
 			);
@@ -588,6 +592,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BG99A323JH;
 				INFOPLIST_FILE = WynkDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -607,6 +612,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BG99A323JH;
 				INFOPLIST_FILE = WynkDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

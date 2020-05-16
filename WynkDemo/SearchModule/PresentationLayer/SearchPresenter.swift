@@ -14,7 +14,7 @@ final class SearchPresenter: SearchResultsPresenterProtocol {
     var router: SearchResultsRouterInputProtocol
     private var offset = 1
     private var size = 20
-
+    private var currentSearchedText = ""
     init(interactor: SearchResultsInteractorInputProtocol,
          router: SearchResultsRouterInputProtocol) {
         self.interactor = interactor
@@ -24,6 +24,10 @@ final class SearchPresenter: SearchResultsPresenterProtocol {
     }
 
     func searchText(_ text: String) {
+        if text != currentSearchedText {
+            currentSearchedText = text
+            offset = 1
+        }
         interactor.performSearchFor(text, offset: offset, size: size)
     }
     
@@ -42,7 +46,7 @@ extension SearchPresenter: SearchResultsInteractorOutputProtocol {
         if let data = data {
             let viewModel = SearchViewModel(title: "Search", dataSource: data.photos, placeholder: "Search", reuseIdentifier: "SearchResultsCell")
             interface?.setUpView(with: viewModel)
-           // offset += size
+            offset += 1
         }
     }
 
