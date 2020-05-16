@@ -9,15 +9,22 @@
 import Foundation
 import UIKit
 
-public class PendingOperations {
-    lazy var downloadsInProgress: [IndexPath: Operation] = [:]
-    lazy var downloadQueue: OperationQueue = {
+public protocol PendingOperationProtocol {
+    var downloadsInProgress: [IndexPath: Operation] { get set }
+    var downloadQueue: OperationQueue { get set }
+
+    func cancelAllOperations()
+}
+
+public class PendingOperations: PendingOperationProtocol {
+    lazy public var downloadsInProgress: [IndexPath: Operation] = [:]
+    lazy public var downloadQueue: OperationQueue = {
         var queue = OperationQueue()
         queue.name = "com.Wynk.demo"
         return queue
     }()
-    
-    func cancelAllOperations(){
+
+    public func cancelAllOperations(){
         downloadQueue.cancelAllOperations()
     }
 }

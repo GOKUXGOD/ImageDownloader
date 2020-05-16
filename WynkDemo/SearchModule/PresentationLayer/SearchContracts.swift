@@ -23,7 +23,7 @@ public enum SearchOperationState {
 public protocol SearchResultsInterfaceProtocol: class {
     var presenter: SearchResultsPresenterProtocol { get }
 
-    func setUpView(with viewModel: SearchViewModel)
+    func setUpView(with data: [SearchItem])
 }
 
 // MARK: - View to Presenter

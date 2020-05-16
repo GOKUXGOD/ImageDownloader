@@ -44,8 +44,7 @@ final class SearchPresenter: SearchResultsPresenterProtocol {
 extension SearchPresenter: SearchResultsInteractorOutputProtocol {
     func updateSearchWithData(_ data: SearchData?) {
         if let data = data {
-            let viewModel = SearchViewModel(title: "Search", dataSource: data.photos, placeholder: "Search", reuseIdentifier: "SearchResultsCell")
-            interface?.setUpView(with: viewModel)
+            interface?.setUpView(with: data.photos)
             offset += 1
         }
     }

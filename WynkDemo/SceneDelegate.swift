@@ -39,10 +39,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let router = resolver.resolve(SearchResultsRouterInputProtocol.self)!
             return SearchPresenter(interactor: interactor, router: router)
         }
-
+        
+        container.register(PendingOperationProtocol.self) { resolver in
+            return PendingOperations()
+        }
+        
+        container.register(SearchViewModelProtocol.self) { resolver in
+            return SearchViewModel(title: "Search", placeholder: "Search for anything", reuseIdentifier: "SearchCell", numberOfCellsInRow: 3, spaceBetweenCells: 10)
+        }
         container.register(SearchResultsInterfaceProtocol.self) { resolver in
             let presenter = resolver.resolve(SearchResultsPresenterProtocol.self)!
-            return SearchViewController(presenter: presenter)
+            let pendingOperations = resolver.resolve(PendingOperationProtocol.self)!
+            let viewModel = resolver.resolve(SearchViewModelProtocol.self)!
+            return SearchViewController(presenter: presenter, pendingOperations: pendingOperations, viewModel: viewModel)
         }
 
         return container

@@ -11,11 +11,10 @@ import UIKit
 
 class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
     var presenter: SearchResultsPresenterProtocol
-    let reuseIdentifier = "SearchCell"
     private var dataSource: [SearchItem] = []
 
-    private var viewModel: SearchViewModel!
-    private let pendingOperations = PendingOperations()
+    private var viewModel: SearchViewModelProtocol
+    private var pendingOperations: PendingOperationProtocol
     private let searchController: UISearchController = {
         return UISearchController(searchResultsController: nil)
     }()
@@ -27,22 +26,27 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
         return centerLoader
     }()
 
-    private var collectionView: UICollectionView = {
+    private lazy var collectionViewLayout: UICollectionViewLayout = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        let spaceBetweenCells = CGFloat(8)
-        let cellSize = UIScreen.main.bounds.width/CGFloat(3) - spaceBetweenCells
+        let spaceBetweenCells = CGFloat(viewModel.spaceBetweenCells)
+        let cellSize = UIScreen.main.bounds.width/CGFloat(viewModel.numberOfCellsInRow) - spaceBetweenCells
         layout.sectionInset = UIEdgeInsets(top: spaceBetweenCells/2, left: spaceBetweenCells/2, bottom: spaceBetweenCells/2, right: spaceBetweenCells/2)
         layout.itemSize = CGSize(width: cellSize, height: cellSize)
         layout.minimumLineSpacing = spaceBetweenCells/2
+        return layout
+    }()
+
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: collectionViewLayout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
 
-    init(presenter: SearchResultsPresenterProtocol) {
+    init(presenter: SearchResultsPresenterProtocol, pendingOperations: PendingOperationProtocol, viewModel: SearchViewModelProtocol) {
         self.presenter = presenter
+        self.pendingOperations = pendingOperations
+        self.viewModel = viewModel
+
         super.init(nibName: nil, bundle: nil)
 
         self.presenter.interface = self
@@ -86,7 +90,7 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
 
     private func setUpSearchController() {
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search Candies"
+        searchController.searchBar.placeholder = viewModel.placeholder
         navigationItem.titleView = searchController.searchBar
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.delegate = self
@@ -94,18 +98,16 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
     }
 
     private func registerNibs() {
-        collectionView.register(SearchResultsCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.register(SearchResultsCell.self, forCellWithReuseIdentifier: viewModel.reuseIdentifier)
     }
 
-    func setUpView(with viewModel: SearchViewModel) {
+    func setUpView(with data: [SearchItem]) {
         centerLoader.stopAnimating()
-        self.viewModel = viewModel
-        title = viewModel.title
         if dataSource.isEmpty {
-            dataSource = viewModel.dataSource
+            dataSource = data
             collectionView.reloadData()
         } else {
-            setUpPaginationData(items: viewModel.dataSource)
+            setUpPaginationData(items: data)
         }
     }
 
@@ -198,7 +200,7 @@ extension SearchViewController: UICollectionViewDataSource {
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? SearchResultsCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: viewModel.reuseIdentifier, for: indexPath) as? SearchResultsCell {
             return cell
         }
         fatalError()
@@ -251,13 +253,13 @@ extension SearchViewController {
      
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
        if !decelerate {
-         loadImagesForOnscreenCells()
+         loadImagesForVisibleCells()
          resumeAllOperations()
        }
      }
      
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-       loadImagesForOnscreenCells()
+       loadImagesForVisibleCells()
        resumeAllOperations()
      }
      
@@ -271,7 +273,7 @@ extension SearchViewController {
        pendingOperations.downloadQueue.isSuspended = false
      }
      
-    func loadImagesForOnscreenCells() {
+    func loadImagesForVisibleCells() {
         let pathsArray = collectionView.indexPathsForVisibleItems
         let allPendingOperations = Set(pendingOperations.downloadsInProgress.keys)
 

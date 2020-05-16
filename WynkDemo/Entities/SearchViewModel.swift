@@ -9,21 +9,24 @@
 import Foundation
 protocol SearchViewModelProtocol {
     var title: String { get set }
-    var dataSource: [SearchItem] { get set }
     var placeholder: String { get set }
     var reuseIdentifier: String { get set }
+    var numberOfCellsInRow: Int { get set }
+    var spaceBetweenCells: Int { get set }
 }
 
 public struct SearchViewModel: SearchViewModelProtocol {
     var title: String
-    var dataSource: [SearchItem]
     var placeholder: String
     var reuseIdentifier: String
+    var numberOfCellsInRow: Int
+    var spaceBetweenCells: Int
 
-    init(title: String, dataSource: [SearchItem], placeholder: String, reuseIdentifier: String) {
+    init(title: String, placeholder: String, reuseIdentifier: String, numberOfCellsInRow: Int, spaceBetweenCells: Int) {
         self.title = title
-        self.dataSource = dataSource
         self.placeholder = placeholder
         self.reuseIdentifier = reuseIdentifier
+        self.numberOfCellsInRow = numberOfCellsInRow
+        self.spaceBetweenCells = spaceBetweenCells
     }
 }
