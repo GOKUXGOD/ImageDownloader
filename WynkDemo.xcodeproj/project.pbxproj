@@ -1,0 +1,606 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		479882A2EAFB7BCE369BA69B /* Pods_WynkDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5C8EC2B186150A5E1370C8B /* Pods_WynkDemo.framework */; };
+		7D9EC90324700B4900C1E500 /* FlickerImagesClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9EC90024700B4900C1E500 /* FlickerImagesClient.swift */; };
+		7D9EC90424700B4900C1E500 /* GenericAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9EC90124700B4900C1E500 /* GenericAPIClient.swift */; };
+		7D9EC90524700B4900C1E500 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9EC90224700B4900C1E500 /* Endpoint.swift */; };
+		7DB9A66E246FFC230061DC46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9A66D246FFC230061DC46 /* AppDelegate.swift */; };
+		7DB9A670246FFC230061DC46 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9A66F246FFC230061DC46 /* SceneDelegate.swift */; };
+		7DB9A672246FFC230061DC46 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9A671246FFC230061DC46 /* ViewController.swift */; };
+		7DB9A675246FFC230061DC46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DB9A673246FFC230061DC46 /* Main.storyboard */; };
+		7DB9A677246FFC240061DC46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DB9A676246FFC240061DC46 /* Assets.xcassets */; };
+		7DB9A67A246FFC240061DC46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DB9A678246FFC240061DC46 /* LaunchScreen.storyboard */; };
+		7DB9A685246FFC240061DC46 /* WynkDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9A684246FFC240061DC46 /* WynkDemoTests.swift */; };
+		C4D67DF39116FEA5928A137A /* Pods_WynkDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ADB475DBC1D44912C305F9 /* Pods_WynkDemoTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7DB9A681246FFC240061DC46 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7DB9A662246FFC220061DC46 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DB9A669246FFC230061DC46;
+			remoteInfo = WynkDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		093CAE41E6A185C7ABCC686B /* Pods-WynkDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WynkDemoTests.release.xcconfig"; path = "Target Support Files/Pods-WynkDemoTests/Pods-WynkDemoTests.release.xcconfig"; sourceTree = "<group>"; };
+		3A69BCDBC67F23F3F8B9438C /* Pods-WynkDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WynkDemo.debug.xcconfig"; path = "Target Support Files/Pods-WynkDemo/Pods-WynkDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		7D9EC90024700B4900C1E500 /* FlickerImagesClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickerImagesClient.swift; sourceTree = "<group>"; };
+		7D9EC90124700B4900C1E500 /* GenericAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericAPIClient.swift; sourceTree = "<group>"; };
+		7D9EC90224700B4900C1E500 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		7DB9A66A246FFC230061DC46 /* WynkDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WynkDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DB9A66D246FFC230061DC46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7DB9A66F246FFC230061DC46 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		7DB9A671246FFC230061DC46 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7DB9A674246FFC230061DC46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7DB9A676246FFC240061DC46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7DB9A679246FFC240061DC46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7DB9A67B246FFC240061DC46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7DB9A680246FFC240061DC46 /* WynkDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WynkDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DB9A684246FFC240061DC46 /* WynkDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WynkDemoTests.swift; sourceTree = "<group>"; };
+		7DB9A686246FFC240061DC46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		91ADB475DBC1D44912C305F9 /* Pods_WynkDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WynkDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDDBF41D9C0BCD8BC84A64D2 /* Pods-WynkDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WynkDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-WynkDemoTests/Pods-WynkDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E79739FC81E915EF763CFBB2 /* Pods-WynkDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WynkDemo.release.xcconfig"; path = "Target Support Files/Pods-WynkDemo/Pods-WynkDemo.release.xcconfig"; sourceTree = "<group>"; };
+		F5C8EC2B186150A5E1370C8B /* Pods_WynkDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WynkDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7DB9A667246FFC230061DC46 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				479882A2EAFB7BCE369BA69B /* Pods_WynkDemo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DB9A67D246FFC240061DC46 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4D67DF39116FEA5928A137A /* Pods_WynkDemoTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7D9EC8D82470047600C1E500 /* PresentationLayer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PresentationLayer;
+			sourceTree = "<group>";
+		};
+		7D9EC8D92470047E00C1E500 /* NetworkLayer */ = {
+			isa = PBXGroup;
+			children = (
+				7D9EC90224700B4900C1E500 /* Endpoint.swift */,
+				7D9EC90024700B4900C1E500 /* FlickerImagesClient.swift */,
+				7D9EC90124700B4900C1E500 /* GenericAPIClient.swift */,
+			);
+			path = NetworkLayer;
+			sourceTree = "<group>";
+		};
+		7DB9A661246FFC220061DC46 = {
+			isa = PBXGroup;
+			children = (
+				7DB9A66C246FFC230061DC46 /* WynkDemo */,
+				7DB9A683246FFC240061DC46 /* WynkDemoTests */,
+				7DB9A66B246FFC230061DC46 /* Products */,
+				EDEF295558304B43A53C4367 /* Pods */,
+				B90955EE2512F4E1032B8B56 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		7DB9A66B246FFC230061DC46 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7DB9A66A246FFC230061DC46 /* WynkDemo.app */,
+				7DB9A680246FFC240061DC46 /* WynkDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7DB9A66C246FFC230061DC46 /* WynkDemo */ = {
+			isa = PBXGroup;
+			children = (
+				7D9EC8D92470047E00C1E500 /* NetworkLayer */,
+				7D9EC8D82470047600C1E500 /* PresentationLayer */,
+				7DB9A66D246FFC230061DC46 /* AppDelegate.swift */,
+				7DB9A66F246FFC230061DC46 /* SceneDelegate.swift */,
+				7DB9A671246FFC230061DC46 /* ViewController.swift */,
+				7DB9A673246FFC230061DC46 /* Main.storyboard */,
+				7DB9A676246FFC240061DC46 /* Assets.xcassets */,
+				7DB9A678246FFC240061DC46 /* LaunchScreen.storyboard */,
+				7DB9A67B246FFC240061DC46 /* Info.plist */,
+			);
+			path = WynkDemo;
+			sourceTree = "<group>";
+		};
+		7DB9A683246FFC240061DC46 /* WynkDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				7DB9A684246FFC240061DC46 /* WynkDemoTests.swift */,
+				7DB9A686246FFC240061DC46 /* Info.plist */,
+			);
+			path = WynkDemoTests;
+			sourceTree = "<group>";
+		};
+		B90955EE2512F4E1032B8B56 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F5C8EC2B186150A5E1370C8B /* Pods_WynkDemo.framework */,
+				91ADB475DBC1D44912C305F9 /* Pods_WynkDemoTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EDEF295558304B43A53C4367 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3A69BCDBC67F23F3F8B9438C /* Pods-WynkDemo.debug.xcconfig */,
+				E79739FC81E915EF763CFBB2 /* Pods-WynkDemo.release.xcconfig */,
+				BDDBF41D9C0BCD8BC84A64D2 /* Pods-WynkDemoTests.debug.xcconfig */,
+				093CAE41E6A185C7ABCC686B /* Pods-WynkDemoTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7DB9A669246FFC230061DC46 /* WynkDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DB9A689246FFC240061DC46 /* Build configuration list for PBXNativeTarget "WynkDemo" */;
+			buildPhases = (
+				751CD06CDEF5FDC283297FFA /* [CP] Check Pods Manifest.lock */,
+				7DB9A666246FFC230061DC46 /* Sources */,
+				7DB9A667246FFC230061DC46 /* Frameworks */,
+				7DB9A668246FFC230061DC46 /* Resources */,
+				85E9DD8D59DE2EB8A5E91448 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WynkDemo;
+			productName = WynkDemo;
+			productReference = 7DB9A66A246FFC230061DC46 /* WynkDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7DB9A67F246FFC240061DC46 /* WynkDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DB9A68C246FFC240061DC46 /* Build configuration list for PBXNativeTarget "WynkDemoTests" */;
+			buildPhases = (
+				FF36479D6876904FC7B097D7 /* [CP] Check Pods Manifest.lock */,
+				7DB9A67C246FFC240061DC46 /* Sources */,
+				7DB9A67D246FFC240061DC46 /* Frameworks */,
+				7DB9A67E246FFC240061DC46 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7DB9A682246FFC240061DC46 /* PBXTargetDependency */,
+			);
+			name = WynkDemoTests;
+			productName = WynkDemoTests;
+			productReference = 7DB9A680246FFC240061DC46 /* WynkDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7DB9A662246FFC220061DC46 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "Nitin Upadhyay";
+				TargetAttributes = {
+					7DB9A669246FFC230061DC46 = {
+						CreatedOnToolsVersion = 11.3;
+					};
+					7DB9A67F246FFC240061DC46 = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = 7DB9A669246FFC230061DC46;
+					};
+				};
+			};
+			buildConfigurationList = 7DB9A665246FFC220061DC46 /* Build configuration list for PBXProject "WynkDemo" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7DB9A661246FFC220061DC46;
+			productRefGroup = 7DB9A66B246FFC230061DC46 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7DB9A669246FFC230061DC46 /* WynkDemo */,
+				7DB9A67F246FFC240061DC46 /* WynkDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7DB9A668246FFC230061DC46 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DB9A67A246FFC240061DC46 /* LaunchScreen.storyboard in Resources */,
+				7DB9A677246FFC240061DC46 /* Assets.xcassets in Resources */,
+				7DB9A675246FFC230061DC46 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DB9A67E246FFC240061DC46 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		751CD06CDEF5FDC283297FFA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WynkDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		85E9DD8D59DE2EB8A5E91448 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WynkDemo/Pods-WynkDemo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WynkDemo/Pods-WynkDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF36479D6876904FC7B097D7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WynkDemoTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7DB9A666246FFC230061DC46 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DB9A672246FFC230061DC46 /* ViewController.swift in Sources */,
+				7D9EC90324700B4900C1E500 /* FlickerImagesClient.swift in Sources */,
+				7DB9A66E246FFC230061DC46 /* AppDelegate.swift in Sources */,
+				7D9EC90424700B4900C1E500 /* GenericAPIClient.swift in Sources */,
+				7D9EC90524700B4900C1E500 /* Endpoint.swift in Sources */,
+				7DB9A670246FFC230061DC46 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DB9A67C246FFC240061DC46 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DB9A685246FFC240061DC46 /* WynkDemoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7DB9A682246FFC240061DC46 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7DB9A669246FFC230061DC46 /* WynkDemo */;
+			targetProxy = 7DB9A681246FFC240061DC46 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7DB9A673246FFC230061DC46 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7DB9A674246FFC230061DC46 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7DB9A678246FFC240061DC46 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7DB9A679246FFC240061DC46 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7DB9A687246FFC240061DC46 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7DB9A688246FFC240061DC46 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7DB9A68A246FFC240061DC46 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A69BCDBC67F23F3F8B9438C /* Pods-WynkDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = WynkDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nitin.WynkDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7DB9A68B246FFC240061DC46 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E79739FC81E915EF763CFBB2 /* Pods-WynkDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = WynkDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nitin.WynkDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7DB9A68D246FFC240061DC46 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BDDBF41D9C0BCD8BC84A64D2 /* Pods-WynkDemoTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = WynkDemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nitin.WynkDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WynkDemo.app/WynkDemo";
+			};
+			name = Debug;
+		};
+		7DB9A68E246FFC240061DC46 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 093CAE41E6A185C7ABCC686B /* Pods-WynkDemoTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = WynkDemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nitin.WynkDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WynkDemo.app/WynkDemo";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7DB9A665246FFC220061DC46 /* Build configuration list for PBXProject "WynkDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DB9A687246FFC240061DC46 /* Debug */,
+				7DB9A688246FFC240061DC46 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7DB9A689246FFC240061DC46 /* Build configuration list for PBXNativeTarget "WynkDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DB9A68A246FFC240061DC46 /* Debug */,
+				7DB9A68B246FFC240061DC46 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7DB9A68C246FFC240061DC46 /* Build configuration list for PBXNativeTarget "WynkDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DB9A68D246FFC240061DC46 /* Debug */,
+				7DB9A68E246FFC240061DC46 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7DB9A662246FFC220061DC46 /* Project object */;
+}
