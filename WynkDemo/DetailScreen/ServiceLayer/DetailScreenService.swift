@@ -11,9 +11,11 @@ import UIKit
 
 public final class DetailScreenService: DetailScreenServiceProtocol {
     private let apiService: DetailScreenApiServiceProtocol
-    
-    init(apiService: DetailScreenApiServiceProtocol) {
+    private let cachingService: CacheProtocol
+    init(apiService: DetailScreenApiServiceProtocol,
+         cachingService: CacheProtocol) {
         self.apiService = apiService
+        self.cachingService = cachingService
     }
 
     public func fetchSearchResult(searchKey: String, offset: Int, size: Int, success: ((SearchData) -> Void)?, failure: ((APIError) -> Void)?) {

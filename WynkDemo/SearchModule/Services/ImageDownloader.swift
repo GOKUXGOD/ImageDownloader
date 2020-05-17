@@ -10,10 +10,11 @@ import Foundation
 import UIKit
 
 public class ImageDownloader: Operation {
-    var searchItem: SearchItem
+    var downlodableItem: Downlodable
     var image: UIImage?
-    init(_ photoRecord: SearchItem) {
-        self.searchItem = photoRecord
+
+    init(_ photoRecord: Downlodable) {
+        self.downlodableItem = photoRecord
     }
 
     override public func main() {
@@ -21,7 +22,7 @@ public class ImageDownloader: Operation {
             return
         }
 
-        guard let imageUrl = URL(string: searchItem.normalImageUrl ?? ""),
+        guard let imageUrl = URL(string: downlodableItem.url),
             let imageData = try? Data(contentsOf: imageUrl) else {
                 return
         }
@@ -30,13 +31,13 @@ public class ImageDownloader: Operation {
             return
         }
 
-        if !imageData.isEmpty {
-            self.image = UIImage(data:imageData)
-            searchItem.image = UIImage(data:imageData)
-            searchItem.state = .downloaded
+        if !imageData.isEmpty, let image = UIImage(data:imageData) {
+            self.image = image
+            downlodableItem.image = image
+            downlodableItem.state = .downloaded
         } else {
-            searchItem.state = .failed
-            searchItem.image = UIImage(named: "Failed")
+            downlodableItem.state = .failed
+            downlodableItem.image = UIImage(named: "Failed")
         }
     }
 }

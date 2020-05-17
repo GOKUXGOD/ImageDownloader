@@ -23,7 +23,8 @@ public final class SearchRouter: SearchResultsRouterInputProtocol {
 
         container.register(DetailScreenServiceProtocol.self) { resolver in
             let apiService = resolver.resolve(DetailScreenApiServiceProtocol.self)!
-            return DetailScreenService(apiService: apiService)
+            let cachingService = resolver.resolve(CacheProtocol.self)!
+            return DetailScreenService(apiService: apiService, cachingService: cachingService)
         }
 
         container.register(DetailScreenInteractorInputProtocol.self) { resolver in

@@ -9,8 +9,50 @@
 import Foundation
 import UIKit
 
+public enum DownlodableState {
+  case new, downloaded, failed
+
+    init(state: SearchItemState) {
+        switch state {
+        case .downloaded:
+            self = .downloaded
+        case .failed:
+            self = .failed
+        case .new:
+            self = .new
+        }
+    }
+}
+
+protocol Downlodable {
+    var state: DownlodableState { get set }
+    var image: UIImage? { get set }
+    var url: String { get set }
+}
+
+class DownlodableItem: Downlodable {
+    var state: DownlodableState
+    var image: UIImage?
+    var url: String
+    
+    init(state: DownlodableState,
+         image: UIImage?,
+         url: String) {
+        self.state = state
+        self.image = image
+        self.url = url
+    }
+
+    init(searchItem: SearchItem) {
+        self.image = searchItem.image
+        self.url = searchItem.normalImageUrl ?? ""
+        self.state = DownlodableState(state: searchItem.state)
+    }
+}
+
 protocol CacheProtocol {
     var pendingOperations: PendingOperationProtocol { get set }
+    func startDownloadForItem(item: Downlodable, completionHandler: @escaping CacheManagerCompletionHandler)
 }
 
 public protocol PendingOperationProtocol {
@@ -43,10 +85,8 @@ public final class CacheManager: CacheProtocol {
         self.pendingOperations = pendingOperation
     }
 
-    func startDownloadForItem(searchItem: SearchItem, isLarge: Bool, completionHandler: @escaping CacheManagerCompletionHandler){
-        guard let cachedUrl = isLarge ? searchItem.largeImageUrl : searchItem.normalImageUrl else {
-            return
-        }
+    func startDownloadForItem(item: Downlodable, completionHandler: @escaping CacheManagerCompletionHandler) {
+        let cachedUrl = item.url
         self.completionHandler[cachedUrl] = completionHandler
         
         if let cachedImage = imageCache.object(forKey: cachedUrl as NSString) {
@@ -62,7 +102,7 @@ public final class CacheManager: CacheProtocol {
         }
 
         print("starting new download")
-        let downloader = ImageDownloader(searchItem)
+        let downloader = ImageDownloader(item)
         
         downloader.completionBlock = {
             if downloader.isCancelled {
@@ -78,6 +118,7 @@ public final class CacheManager: CacheProtocol {
                     self.completionHandler[cachedUrl]!(nil, nil)
                 }
             }
+            print("download finish")
         }
 
         pendingOperations.downloadsInProgress[cachedUrl] = downloader

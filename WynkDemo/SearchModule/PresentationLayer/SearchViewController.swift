@@ -16,6 +16,8 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
 
     private var viewModel: SearchViewModelProtocol
     private var cacheManager: CacheProtocol
+    private var currentSearchText = ""
+    
     private let searchController: UISearchController = {
         return UISearchController(searchResultsController: nil)
     }()
@@ -159,6 +161,9 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
     }
 
     private func perfromSearchFor(text: String) {
+        cacheManager.pendingOperations.cancelAllOperations()
+        dataSource = []
+        collectionView.reloadData()
         centerLoader.startAnimating()
         presenter.searchText(text)
         hideRecentSearches()
@@ -189,22 +194,31 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
             return
         }
         
-        let downloader = ImageDownloader(searchItem)
-        downloader.completionBlock = {
-            if downloader.isCancelled {
-                return
-            }
-            
-            DispatchQueue.main.async { [weak self] in
-                guard let sSelf = self else {
-                    return
+//        let downloader = ImageDownloader(DownlodableItem(searchItem: searchItem))
+//        downloader.completionBlock = {
+//            if downloader.isCancelled {
+//                return
+//            }
+//
+//            DispatchQueue.main.async { [weak self] in
+//                guard let sSelf = self else {
+//                    return
+//                }
+//                sSelf.cacheManager.pendingOperations.downloadsInProgress.removeValue(forKey: url)
+//                sSelf.collectionView.reloadItems(at: [indexPath])
+//            }
+//        }
+        cacheManager.startDownloadForItem(item: DownlodableItem(searchItem: searchItem)) { [weak self] (image, error) in
+            DispatchQueue.main.async {
+                if let cell = self?.collectionView.cellForItem(at: indexPath) as? SearchResultsCell {
+                    cell.imageView.image = image
+                    cell.loader.stopAnimating()
+                    self?.dataSource[indexPath.row].state = .downloaded
                 }
-                sSelf.cacheManager.pendingOperations.downloadsInProgress.removeValue(forKey: url)
-                sSelf.collectionView.reloadItems(at: [indexPath])
             }
         }
-        cacheManager.pendingOperations.downloadsInProgress[url] = downloader
-        cacheManager.pendingOperations.downloadQueue.addOperation(downloader)
+//        cacheManager.pendingOperations.downloadsInProgress[url] = downloader
+//        cacheManager.pendingOperations.downloadQueue.addOperation(downloader)
     }
 
     deinit {
@@ -225,7 +239,8 @@ extension SearchViewController: UISearchBarDelegate {
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if let text = searchBar.text {
+        if let text = searchBar.text, text != currentSearchText {
+            currentSearchText = text
             perfromSearchFor(text: text)
         }
     }
