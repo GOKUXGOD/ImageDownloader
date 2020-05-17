@@ -8,8 +8,6 @@
 
 import UIKit
 
-private let reuseIdentifier = "PreviousSearchCell"
-
 public protocol RecentSearchesViewDelegate: class {
     func didSelectRecentSearch(_ searchItem: PreviousSearchData)
 }
@@ -19,6 +17,11 @@ public protocol RecentSearchesInterface {
     var delegate: RecentSearchesViewDelegate? { get set }
 
     func updateDatasource(_ value: [PreviousSearchData])
+}
+
+private enum ReuseIdentifier: String {
+    case header
+    case cell
 }
 
 class RecentSearchesViewController: UICollectionViewController, RecentSearchesInterface {
@@ -35,10 +38,11 @@ class RecentSearchesViewController: UICollectionViewController, RecentSearchesIn
         let layout = UICollectionViewFlowLayout()
         let cellSize = CGSize(width: UIScreen.main.bounds.width, height: 40)
         layout.itemSize = cellSize
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.minimumLineSpacing = 0
-
+        layout.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 50)
         super.init(collectionViewLayout: layout)
+        registerNibs()
     }
 
     required init?(coder: NSCoder) {
@@ -47,11 +51,18 @@ class RecentSearchesViewController: UICollectionViewController, RecentSearchesIn
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView!.register(PreviousSearchCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        
         collectionView.dataSource = self
         collectionView.delegate = self
     }
 
+    private func registerNibs() {
+        collectionView.register(PreviousSearchCell.self, forCellWithReuseIdentifier: ReuseIdentifier.cell.rawValue)
+        collectionView.register(RecentSearchesHeaderView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: ReuseIdentifier.header.rawValue)
+    }
+    
     func updateDatasource(_ value: [PreviousSearchData]) {
         dataSource = value
     }
@@ -67,7 +78,7 @@ class RecentSearchesViewController: UICollectionViewController, RecentSearchesIn
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? PreviousSearchCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReuseIdentifier.cell.rawValue, for: indexPath) as? PreviousSearchCell {
             cell.label.text = dataSource[indexPath.row].title
             return cell
         }
@@ -77,5 +88,19 @@ class RecentSearchesViewController: UICollectionViewController, RecentSearchesIn
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.didSelectRecentSearch(dataSource[indexPath.row])
     }
-}
 
+    override func collectionView(_ collectionView: UICollectionView,
+                                 viewForSupplementaryElementOfKind kind: String,
+                                 at indexPath: IndexPath) -> UICollectionReusableView {
+        if let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                              withReuseIdentifier: ReuseIdentifier.header.rawValue,
+                                                                              for: indexPath) as? RecentSearchesHeaderView {
+            if dataSource.count > 0 {
+                reusableview.label.text = "Recent Searches"
+            }
+            return reusableview
+        } else {
+            fatalError()
+        }
+    }
+}

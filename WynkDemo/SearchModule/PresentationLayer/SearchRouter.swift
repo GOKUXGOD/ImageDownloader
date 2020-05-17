@@ -32,7 +32,8 @@ public final class SearchRouter: SearchResultsRouterInputProtocol {
         container.register(DetailScreenServiceProtocol.self) { resolver in
             let apiService = resolver.resolve(DetailScreenApiServiceProtocol.self)!
             let cachingService = resolver.resolve(CacheProtocol.self)!
-            return DetailScreenService(apiService: apiService, cachingService: cachingService)
+            let baseUrl = "https://pixabay.com/api/?key=16572321-abb986fe5cfd7ca7d3e003593"
+            return DetailScreenService(apiService: apiService, cachingService: cachingService, baseUrl: baseUrl)
         }
 
         container.register(DetailScreenInteractorInputProtocol.self) { resolver in

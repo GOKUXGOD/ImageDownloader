@@ -193,21 +193,6 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
         guard let url = searchItem.normalImageUrl, !url.isEmpty, cacheManager.pendingOperations.downloadsInProgress[url] == nil else {
             return
         }
-        
-//        let downloader = ImageDownloader(DownlodableItem(searchItem: searchItem))
-//        downloader.completionBlock = {
-//            if downloader.isCancelled {
-//                return
-//            }
-//
-//            DispatchQueue.main.async { [weak self] in
-//                guard let sSelf = self else {
-//                    return
-//                }
-//                sSelf.cacheManager.pendingOperations.downloadsInProgress.removeValue(forKey: url)
-//                sSelf.collectionView.reloadItems(at: [indexPath])
-//            }
-//        }
         cacheManager.startDownloadForItem(item: DownlodableItem(searchItem: searchItem)) { [weak self] (image, error) in
             DispatchQueue.main.async {
                 if let cell = self?.collectionView.cellForItem(at: indexPath) as? SearchResultsCell {
@@ -218,8 +203,6 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
                 }
             }
         }
-//        cacheManager.pendingOperations.downloadsInProgress[url] = downloader
-//        cacheManager.pendingOperations.downloadQueue.addOperation(downloader)
     }
 
     deinit {

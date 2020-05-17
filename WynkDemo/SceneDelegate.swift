@@ -22,7 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         container.register(SearchServiceProtocol.self) { resolver in
             let apiService = resolver.resolve(SearchApiServiceProtocol.self)!
-            return SearchService(apiService: apiService)
+            let baseUrl = "https://pixabay.com/api/?key=16572321-abb986fe5cfd7ca7d3e003593"
+            return SearchService(apiService: apiService, baseUrl: baseUrl)
         }
 
         container.register(SearchResultsInteractorInputProtocol.self) { resolver in

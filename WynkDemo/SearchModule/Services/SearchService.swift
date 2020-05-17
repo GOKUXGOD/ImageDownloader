@@ -34,13 +34,16 @@ public struct SearchQueryParam: Codable {
 
 public final class SearchService: SearchServiceProtocol {
     private let apiService: SearchApiServiceProtocol
-    
-    init(apiService: SearchApiServiceProtocol) {
+    private let baseUrl: String
+
+    init(apiService: SearchApiServiceProtocol,
+         baseUrl: String) {
         self.apiService = apiService
+        self.baseUrl = baseUrl
     }
 
     public func fetchSearchResult(searchKey: String, offset: Int, size: Int, success: ((SearchData) -> Void)?, failure: ((APIError) -> Void)?) {
-        let urlStr = "https://pixabay.com/api/?key=16572321-abb986fe5cfd7ca7d3e003593&q=\(searchKey)&image_type=photo&page=\(offset)&per_page=\(size)"
+        let urlStr = "\(baseUrl)&q=\(searchKey)&image_type=photo&page=\(offset)&per_page=\(size)"
         let endpoint = SearchEndpoint(url: URL.init(string: urlStr)!, httpMethod: "GET")
         apiService.fetchSearchResult(endpoint: endpoint, success: success, failure: failure)
     }
