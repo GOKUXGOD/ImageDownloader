@@ -39,7 +39,7 @@ final class SearchPresenter: SearchResultsPresenterProtocol {
     
     func handleCellTap(currentIndex: Int, dataArray: [SearchItem], navigationController: UINavigationController) {
         let detailItem = dataArray.map { DetailItem(item: $0) }
-        let detailViewModel = DetailScreenViewModel(photos: detailItem, currentIndex: currentIndex)
+        let detailViewModel = DetailScreenViewModel(photos: detailItem, currentIndex: currentIndex, currentSearchText: currentSearchedText)
 
         router.showDetailPageFor(viewModel: detailViewModel, navController: navigationController)
     }

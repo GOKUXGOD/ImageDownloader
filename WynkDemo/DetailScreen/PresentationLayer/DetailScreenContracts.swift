@@ -19,6 +19,8 @@ public protocol DetailScreenInterfaceProtocol: class {
     var viewModel: DetailScreenViewModelProtcol { get set }
 
     func setUpView(with data: DetailScreenViewModel)
+    func setUpViewWithImage(image: UIImage)
+    func setUpViewWithItems(items: [DetailItem])
 }
 
 // MARK: - View to Presenter
@@ -28,8 +30,8 @@ public protocol DetailScreenPresenterProtocol {
     var interactor: DetailScreenInteractorInputProtocol { get }
     var router: DetailScreenRouterInputProtocol { get }
 
-    func searchText(_ text: String)
-    func fetchImageFor(_ url: URL)
+    func searchText(_ text: String, offset: Int, size: Int)
+    func fetchImageFor(item: DetailItem)
 }
 
 // MARK: - Presenter to Interactor
@@ -38,7 +40,7 @@ public protocol DetailScreenInteractorInputProtocol {
     var presenter: DetailScreenInteractorOutputProtocol? { get set }
 
     func performSearchFor(_ text: String, offset: Int, size: Int)
-    func fetchImageFor(url: URL)
+    func fetchImageFor(item: Downlodable)
 }
 
 // MARK: - Interactor to Presenter

@@ -15,8 +15,8 @@ public protocol DetailScreenServiceProtocol {
                            size: Int,
                            success: ((SearchData) -> Void)?,
                            failure: ((APIError) -> Void)?)
-    
-    func fetchImage(searchKey: URL,
-                           success: ((UIImage) -> Void)?,
-                           failure: ((APIError) -> Void)?)
+
+    func fetchImage(item: Downlodable,
+                    success: ((UIImage) -> Void)?,
+                    failure: ((APIError) -> Void)?)
 }

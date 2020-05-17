@@ -24,9 +24,15 @@ public final class DetailScreenService: DetailScreenServiceProtocol {
         apiService.fetchSearchResult(endpoint: endpoint, success: success, failure: failure)
     }
 
-    public func fetchImage(searchKey: URL,
-                    success: ((UIImage) -> Void)?,
-                    failure: ((APIError) -> Void)?) {
-        
+    public func fetchImage(item: Downlodable, success: ((UIImage) -> Void)?, failure: ((APIError) -> Void)?) {
+        cachingService.startDownloadForItem(item: item) { (image, error) in
+            if let image = image {
+                success?(image)
+            } else if let error = error{
+                failure?(error)
+            } else {
+                failure?(APIError.requestFailed)
+            }
+        }
     }
 }

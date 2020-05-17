@@ -214,6 +214,7 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
                     cell.imageView.image = image
                     cell.loader.stopAnimating()
                     self?.dataSource[indexPath.row].state = .downloaded
+                    self?.dataSource[indexPath.row].image = image
                 }
             }
         }

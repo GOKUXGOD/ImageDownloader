@@ -12,13 +12,21 @@ import Swinject
 public final class SearchRouter: SearchResultsRouterInputProtocol {
     init() {
     }
-
     public func showDetailPageFor(viewModel: DetailScreenViewModel, navController: UINavigationController) {
         let container = Container()
 
         container.register(DetailScreenApiServiceProtocol.self) { _ in
             let networkService = PixabayImagesClient()
             return DetailScreenApiService(networkService: networkService)
+        }
+        
+        container.register(PendingOperationProtocol.self) { _ in
+            return PendingOperations()
+        }
+
+        container.register(CacheProtocol.self) { resolver in
+            let pendingOperations = resolver.resolve(PendingOperationProtocol.self)!
+            return CacheManager(pendingOperation: pendingOperations)
         }
 
         container.register(DetailScreenServiceProtocol.self) { resolver in
@@ -44,7 +52,7 @@ public final class SearchRouter: SearchResultsRouterInputProtocol {
         }
         
         container.register(DetailScreenViewModelProtcol.self) { resolver in
-            return DetailScreenViewModel(photos: viewModel.photos, currentIndex: viewModel.currentIndex)
+            return DetailScreenViewModel(photos: viewModel.photos, currentIndex: viewModel.currentIndex, currentSearchText: viewModel.currentSearchText)
         }
 
         container.register(DetailScreenInterfaceProtocol.self) { resolver in

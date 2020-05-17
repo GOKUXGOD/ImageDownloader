@@ -36,13 +36,18 @@ public struct DetailItem: DetailItemProtocol {
 public protocol DetailScreenViewModelProtcol {
     var photos: [DetailItem] { get set }
     var currentIndex: Int { get set }
+    var currentSearchText: String { get set }
 }
 
 public struct DetailScreenViewModel: DetailScreenViewModelProtcol {
     public var photos: [DetailItem]
     public var currentIndex: Int
-    init(photos: [DetailItem], currentIndex: Int) {
+    public var currentSearchText: String
+
+    init(photos: [DetailItem], currentIndex: Int,
+         currentSearchText: String) {
         self.photos = photos
         self.currentIndex = currentIndex
+        self.currentSearchText = currentSearchText
     }
 }

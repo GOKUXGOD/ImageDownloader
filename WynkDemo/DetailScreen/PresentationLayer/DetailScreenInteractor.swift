@@ -16,8 +16,8 @@ final class DetailScreenInteractor: DetailScreenInteractorInputProtocol {
         self.detailService = detailService
     }
 
-    func fetchImageFor(url: URL) {
-        detailService.fetchImage(searchKey: url, success: { [weak self] image in
+    func fetchImageFor(item: Downlodable) {
+        detailService.fetchImage(item: item, success: { [weak self] image in
             guard let sSelf = self else {
                 return
             }

@@ -24,7 +24,7 @@ public enum DownlodableState {
     }
 }
 
-protocol Downlodable {
+public protocol Downlodable {
     var state: DownlodableState { get set }
     var image: UIImage? { get set }
     var url: String { get set }
@@ -75,7 +75,7 @@ public class PendingOperations: PendingOperationProtocol {
     }
 }
 
-typealias CacheManagerCompletionHandler = (UIImage?, Error?) -> Void
+typealias CacheManagerCompletionHandler = (UIImage?, APIError?) -> Void
 public final class CacheManager: CacheProtocol {
     private var completionHandler = [String : CacheManagerCompletionHandler]()
     var pendingOperations: PendingOperationProtocol
