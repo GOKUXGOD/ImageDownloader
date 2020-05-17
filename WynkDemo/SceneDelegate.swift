@@ -48,8 +48,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         container.register(PendingOperationProtocol.self) { resolver in
             return PendingOperations()
-        }
+        }.inObjectScope(.container)
         
+        container.register(CacheProtocol.self) { resolver in
+            let pendingOperations = resolver.resolve(PendingOperationProtocol.self)!
+            return CacheManager(pendingOperation: pendingOperations)
+        }.inObjectScope(.container)
+
         container.register(SearchViewModelProtocol.self) { resolver in
             var data: [PreviousSearchData] = []
             let persistance = resolver.resolve(PersistanceProtocol.self)!
@@ -70,10 +75,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         container.register(SearchResultsInterfaceProtocol.self) { resolver in
             let presenter = resolver.resolve(SearchResultsPresenterProtocol.self)!
-            let pendingOperations = resolver.resolve(PendingOperationProtocol.self)!
             let viewModel = resolver.resolve(SearchViewModelProtocol.self)!
             let recentSearchesInterface = resolver.resolve(RecentSearchesInterface.self)!
-            return SearchViewController(presenter: presenter, pendingOperations: pendingOperations, viewModel: viewModel, recentSearchesView: recentSearchesInterface)
+            let cacheProtocol = resolver.resolve(CacheProtocol.self)!
+
+            return SearchViewController(presenter: presenter, viewModel: viewModel, recentSearchesView: recentSearchesInterface, cacheManager: cacheProtocol)
         }
 
         return container

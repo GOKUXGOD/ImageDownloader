@@ -15,7 +15,7 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
     private var dataSource: [SearchItem] = []
 
     private var viewModel: SearchViewModelProtocol
-    private var pendingOperations: PendingOperationProtocol
+    private var cacheManager: CacheProtocol
     private let searchController: UISearchController = {
         return UISearchController(searchResultsController: nil)
     }()
@@ -47,12 +47,12 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
         return recentSearchesView as! RecentSearchesViewController
     }
 
-    init(presenter: SearchResultsPresenterProtocol, pendingOperations: PendingOperationProtocol, viewModel: SearchViewModelProtocol,
-         recentSearchesView: RecentSearchesInterface) {
+    init(presenter: SearchResultsPresenterProtocol, viewModel: SearchViewModelProtocol,
+         recentSearchesView: RecentSearchesInterface, cacheManager: CacheProtocol) {
         self.presenter = presenter
-        self.pendingOperations = pendingOperations
         self.viewModel = viewModel
         self.recentSearchesView = recentSearchesView
+        self.cacheManager = cacheManager
 
         super.init(nibName: nil, bundle: nil)
 
@@ -177,7 +177,7 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
     }
 
     func increasePriority(for searchItem: SearchItem, at indexPath: IndexPath) {
-        guard let operation = pendingOperations.downloadsInProgress[indexPath] else {
+        guard let url = searchItem.normalImageUrl, !url.isEmpty, let operation = cacheManager.pendingOperations.downloadsInProgress[url] else {
             return
         }
         operation.queuePriority = .veryHigh
@@ -185,26 +185,26 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
     }
 
     func startDownload(for searchItem: SearchItem, at indexPath: IndexPath) {
-      guard pendingOperations.downloadsInProgress[indexPath] == nil else {
-        return
-      }
-     
-      let downloader = ImageDownloader(searchItem)
-      downloader.completionBlock = {
-        if downloader.isCancelled {
-          return
+        guard let url = searchItem.normalImageUrl, !url.isEmpty, cacheManager.pendingOperations.downloadsInProgress[url] == nil else {
+            return
         }
-
-        DispatchQueue.main.async { [weak self] in
-            guard let sSelf = self else {
+        
+        let downloader = ImageDownloader(searchItem)
+        downloader.completionBlock = {
+            if downloader.isCancelled {
                 return
             }
-            sSelf.pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)
-            sSelf.collectionView.reloadItems(at: [indexPath])
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let sSelf = self else {
+                    return
+                }
+                sSelf.cacheManager.pendingOperations.downloadsInProgress.removeValue(forKey: url)
+                sSelf.collectionView.reloadItems(at: [indexPath])
+            }
         }
-      }
-      pendingOperations.downloadsInProgress[indexPath] = downloader
-      pendingOperations.downloadQueue.addOperation(downloader)
+        cacheManager.pendingOperations.downloadsInProgress[url] = downloader
+        cacheManager.pendingOperations.downloadQueue.addOperation(downloader)
     }
 
     deinit {
@@ -214,10 +214,10 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        cacheManager.pendingOperations.cancelAllOperations()
         searchBar.text = ""
         dataSource = []
         collectionView.reloadData()
-        pendingOperations.cancelAllOperations()
         if let searches = viewModel.persistance.getvalue(for: .recentSearches) {
             recentSearchesView.updateDatasource(searches)
         }
@@ -284,7 +284,7 @@ extension SearchViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let operation = pendingOperations.downloadsInProgress[indexPath] {
+        if indexPath.row < dataSource.count, let url = dataSource[indexPath.row].normalImageUrl, !url.isEmpty, let operation =  cacheManager.pendingOperations.downloadsInProgress[url]  {
             operation.queuePriority = .veryLow
             print("priority decreases")
         }
@@ -311,34 +311,34 @@ extension SearchViewController {
        loadImagesForVisibleCells()
        resumeAllOperations()
      }
-     
+
      // MARK: - operation management
 
     func suspendAllOperations() {
-       pendingOperations.downloadQueue.isSuspended = true
+        cacheManager.pendingOperations.downloadQueue.isSuspended = true
      }
      
     func resumeAllOperations() {
-       pendingOperations.downloadQueue.isSuspended = false
+       cacheManager.pendingOperations.downloadQueue.isSuspended = false
      }
      
     func loadImagesForVisibleCells() {
         let pathsArray = collectionView.indexPathsForVisibleItems
-        let allPendingOperations = Set(pendingOperations.downloadsInProgress.keys)
-
-        var toBeCancelled = allPendingOperations
-        let visiblePaths = Set(pathsArray)
-        toBeCancelled.subtract(visiblePaths)
-
-        var toBeStarted = visiblePaths
-        toBeStarted.subtract(allPendingOperations)
-        for indexPath in toBeCancelled {
-            if let pendingDownload = pendingOperations.downloadsInProgress[indexPath] {
-                pendingDownload.cancel()
-            }
-
-            pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)
-        }
+//        let allPendingOperations = Set(cacheManager.pendingOperations.downloadsInProgress.keys)
+//
+//        var toBeCancelled = allPendingOperations
+//        let visiblePaths = Set(pathsArray)
+//        toBeCancelled.subtract(visiblePaths)
+//
+//        var toBeStarted = visiblePaths
+//        toBeStarted.subtract(allPendingOperations)
+//        for indexPath in toBeCancelled {
+//            if let pendingDownload = pendingOperations.downloadsInProgress[indexPath] {
+//                pendingDownload.cancel()
+//            }
+//
+//            pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)
+//        }
         for indexPath in pathsArray {
             let recordToProcess = dataSource[indexPath.row]
             startOperations(for: recordToProcess, at: indexPath, increasePriority: true)
