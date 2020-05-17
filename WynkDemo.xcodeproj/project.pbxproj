@@ -34,6 +34,12 @@
 		7DB9A67A246FFC240061DC46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DB9A678246FFC240061DC46 /* LaunchScreen.storyboard */; };
 		7DB9A685246FFC240061DC46 /* WynkDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9A684246FFC240061DC46 /* WynkDemoTests.swift */; };
 		7DFE1F87247075A600F078DB /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DFE1F86247075A600F078DB /* Swinject.framework */; };
+		7DFE1FD22470ACA200F078DB /* UserDefaultsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFE1FD12470ACA200F078DB /* UserDefaultsHandler.swift */; };
+		7DFE1FD42470ACCF00F078DB /* PersistanceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFE1FD32470ACCF00F078DB /* PersistanceProtocol.swift */; };
+		7DFE1FD62470AF6C00F078DB /* PreviousSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFE1FD52470AF6C00F078DB /* PreviousSearchData.swift */; };
+		7DFE1FD92470B3A700F078DB /* Array+Exts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFE1FD82470B3A700F078DB /* Array+Exts.swift */; };
+		7DFE1FDC2470B74900F078DB /* RecentSeachesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFE1FDB2470B74900F078DB /* RecentSeachesViewController.swift */; };
+		7DFE1FDE2470B7B000F078DB /* PreviousSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFE1FDD2470B7B000F078DB /* PreviousSearchCell.swift */; };
 		C4D67DF39116FEA5928A137A /* Pods_WynkDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ADB475DBC1D44912C305F9 /* Pods_WynkDemoTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +86,12 @@
 		7DB9A684246FFC240061DC46 /* WynkDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WynkDemoTests.swift; sourceTree = "<group>"; };
 		7DB9A686246FFC240061DC46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7DFE1F86247075A600F078DB /* Swinject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Swinject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DFE1FD12470ACA200F078DB /* UserDefaultsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHandler.swift; sourceTree = "<group>"; };
+		7DFE1FD32470ACCF00F078DB /* PersistanceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceProtocol.swift; sourceTree = "<group>"; };
+		7DFE1FD52470AF6C00F078DB /* PreviousSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousSearchData.swift; sourceTree = "<group>"; };
+		7DFE1FD82470B3A700F078DB /* Array+Exts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Exts.swift"; sourceTree = "<group>"; };
+		7DFE1FDB2470B74900F078DB /* RecentSeachesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSeachesViewController.swift; sourceTree = "<group>"; };
+		7DFE1FDD2470B7B000F078DB /* PreviousSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousSearchCell.swift; sourceTree = "<group>"; };
 		91ADB475DBC1D44912C305F9 /* Pods_WynkDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WynkDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDDBF41D9C0BCD8BC84A64D2 /* Pods-WynkDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WynkDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-WynkDemoTests/Pods-WynkDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E79739FC81E915EF763CFBB2 /* Pods-WynkDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WynkDemo.release.xcconfig"; path = "Target Support Files/Pods-WynkDemo/Pods-WynkDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -134,6 +146,7 @@
 				7D32371E2470126E00D897A7 /* SearchItem.swift */,
 				7D323720247013ED00D897A7 /* SearchViewModel.swift */,
 				7D32372224701D6800D897A7 /* SearchEndpoint.swift */,
+				7DFE1FD52470AF6C00F078DB /* PreviousSearchData.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -199,10 +212,13 @@
 		7DB9A66C246FFC230061DC46 /* WynkDemo */ = {
 			isa = PBXGroup;
 			children = (
+				7DFE1FDA2470B70D00F078DB /* Common */,
+				7DFE1FAD2470AC6B00F078DB /* Persistance */,
 				7D7A97BA2470300200A24BE7 /* Assembly */,
 				7D1A832D24702A04003B930F /* SearchModule */,
 				7D32371D2470123C00D897A7 /* Entities */,
 				7D9EC8D92470047E00C1E500 /* NetworkLayer */,
+				7DFE1FD72470B39300F078DB /* Extensions */,
 				7DB9A66D246FFC230061DC46 /* AppDelegate.swift */,
 				7DB9A66F246FFC230061DC46 /* SceneDelegate.swift */,
 				7D7A97BD24703B9A00A24BE7 /* Main.storyboard */,
@@ -222,6 +238,32 @@
 				7DB9A686246FFC240061DC46 /* Info.plist */,
 			);
 			path = WynkDemoTests;
+			sourceTree = "<group>";
+		};
+		7DFE1FAD2470AC6B00F078DB /* Persistance */ = {
+			isa = PBXGroup;
+			children = (
+				7DFE1FD12470ACA200F078DB /* UserDefaultsHandler.swift */,
+				7DFE1FD32470ACCF00F078DB /* PersistanceProtocol.swift */,
+			);
+			path = Persistance;
+			sourceTree = "<group>";
+		};
+		7DFE1FD72470B39300F078DB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7DFE1FD82470B3A700F078DB /* Array+Exts.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		7DFE1FDA2470B70D00F078DB /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				7DFE1FDB2470B74900F078DB /* RecentSeachesViewController.swift */,
+				7DFE1FDD2470B7B000F078DB /* PreviousSearchCell.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		B90955EE2512F4E1032B8B56 /* Frameworks */ = {
@@ -421,11 +463,15 @@
 				7DB9A672246FFC230061DC46 /* ViewController.swift in Sources */,
 				7D1A83032470222D003B930F /* SearchViewController.swift in Sources */,
 				7D1A833424702B21003B930F /* SearchApiService.swift in Sources */,
+				7DFE1FD42470ACCF00F078DB /* PersistanceProtocol.swift in Sources */,
+				7DFE1FD92470B3A700F078DB /* Array+Exts.swift in Sources */,
 				7D1A830524702236003B930F /* SearchPresenter.swift in Sources */,
 				7D1A830724702240003B930F /* SearchInteractor.swift in Sources */,
+				7DFE1FDE2470B7B000F078DB /* PreviousSearchCell.swift in Sources */,
 				7D9EC90324700B4900C1E500 /* PixabayImagesClient.swift in Sources */,
 				7D7A97C1247056DD00A24BE7 /* SearchResultsCell.swift in Sources */,
 				7D1A833224702A8D003B930F /* SearchApiServiceProtocol.swift in Sources */,
+				7DFE1FDC2470B74900F078DB /* RecentSeachesViewController.swift in Sources */,
 				7DB9A66E246FFC230061DC46 /* AppDelegate.swift in Sources */,
 				7D32372324701D6800D897A7 /* SearchEndpoint.swift in Sources */,
 				7D1A833624702D40003B930F /* SearchService.swift in Sources */,
@@ -433,10 +479,12 @@
 				7D3236F92470113900D897A7 /* SearchContracts.swift in Sources */,
 				7D9EC90424700B4900C1E500 /* GenericAPIClient.swift in Sources */,
 				7D1A83092470224F003B930F /* SearchRouter.swift in Sources */,
+				7DFE1FD62470AF6C00F078DB /* PreviousSearchData.swift in Sources */,
 				7D323721247013ED00D897A7 /* SearchViewModel.swift in Sources */,
 				7D7A97C324705BDD00A24BE7 /* ImageDownloader.swift in Sources */,
 				7D9EC90524700B4900C1E500 /* Endpoint.swift in Sources */,
 				7D1A833024702A23003B930F /* SearchServiceProtocol.swift in Sources */,
+				7DFE1FD22470ACA200F078DB /* UserDefaultsHandler.swift in Sources */,
 				7D7A97BC24703A3600A24BE7 /* DemoViewController.swift in Sources */,
 				7DB9A670246FFC230061DC46 /* SceneDelegate.swift in Sources */,
 			);

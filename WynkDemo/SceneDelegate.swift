@@ -34,10 +34,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return SearchRouter()
         }
 
+        container.register(PersistanceProtocol.self) { _ in
+            return UserdefaultsHandler(persistance: UserDefaults.standard)
+        }
+
         container.register(SearchResultsPresenterProtocol.self) { resolver in
             let interactor = resolver.resolve(SearchResultsInteractorInputProtocol.self)!
             let router = resolver.resolve(SearchResultsRouterInputProtocol.self)!
-            return SearchPresenter(interactor: interactor, router: router)
+            let persistance = resolver.resolve(PersistanceProtocol.self)!
+
+            return SearchPresenter(interactor: interactor, router: router, persistance: persistance)
         }
         
         container.register(PendingOperationProtocol.self) { resolver in
@@ -47,11 +53,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         container.register(SearchViewModelProtocol.self) { resolver in
             return SearchViewModel(title: "Search", placeholder: "Search for anything", reuseIdentifier: "SearchCell", numberOfCellsInRow: 3, spaceBetweenCells: 10)
         }
+
+        container.register(RecentSearchesInterface.self) { resolver in
+            var data: [PreviousSearchData] = []
+            if let value = UserDefaults.standard.value(forKey: "recentSearches") as? [PreviousSearchData] {
+                data = value
+            }
+            return RecentSearchesViewController(dataSource: data)
+        }
+
         container.register(SearchResultsInterfaceProtocol.self) { resolver in
             let presenter = resolver.resolve(SearchResultsPresenterProtocol.self)!
             let pendingOperations = resolver.resolve(PendingOperationProtocol.self)!
             let viewModel = resolver.resolve(SearchViewModelProtocol.self)!
-            return SearchViewController(presenter: presenter, pendingOperations: pendingOperations, viewModel: viewModel)
+            let recentSearchesInterface = resolver.resolve(RecentSearchesInterface.self)!
+            return SearchViewController(presenter: presenter, pendingOperations: pendingOperations, viewModel: viewModel, recentSearchesView: recentSearchesInterface)
         }
 
         return container

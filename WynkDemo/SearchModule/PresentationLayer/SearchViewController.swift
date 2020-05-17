@@ -11,6 +11,7 @@ import UIKit
 
 class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
     var presenter: SearchResultsPresenterProtocol
+    var recentSearchesView: RecentSearchesInterface
     private var dataSource: [SearchItem] = []
 
     private var viewModel: SearchViewModelProtocol
@@ -42,11 +43,17 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
         return collectionView
     }()
 
-    init(presenter: SearchResultsPresenterProtocol, pendingOperations: PendingOperationProtocol, viewModel: SearchViewModelProtocol) {
+    private var recentSearchesViewController: RecentSearchesViewController {
+        return recentSearchesView as! RecentSearchesViewController
+    }
+
+    init(presenter: SearchResultsPresenterProtocol, pendingOperations: PendingOperationProtocol, viewModel: SearchViewModelProtocol,
+         recentSearchesView: RecentSearchesInterface) {
         self.presenter = presenter
         self.pendingOperations = pendingOperations
         self.viewModel = viewModel
-
+        self.recentSearchesView = recentSearchesView
+    
         super.init(nibName: nil, bundle: nil)
 
         self.presenter.interface = self
@@ -66,6 +73,7 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
         setUpSearchController()
         setUpLoader()
         registerNibs()
+        setUpRecentSearches()
     }
 
     private func setUpCollectionView() {
@@ -85,6 +93,16 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
         var constraints = [NSLayoutConstraint]()
         constraints.append(centerLoader.centerYAnchor.constraint(equalTo: view.centerYAnchor))
         constraints.append(centerLoader.centerXAnchor.constraint(equalTo: view.centerXAnchor))
+        NSLayoutConstraint.activate(constraints)
+    }
+
+    private func setUpRecentSearches() {
+        view.addSubview(recentSearchesViewController.view)
+        var constraints = [NSLayoutConstraint]()
+        constraints.append(recentSearchesViewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor))
+        constraints.append(recentSearchesViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor))
+        constraints.append(recentSearchesViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor))
+        constraints.append(recentSearchesViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor))
         NSLayoutConstraint.activate(constraints)
     }
 

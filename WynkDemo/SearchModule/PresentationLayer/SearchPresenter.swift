@@ -12,14 +12,19 @@ final class SearchPresenter: SearchResultsPresenterProtocol {
     weak var interface: SearchResultsInterfaceProtocol?
     var interactor: SearchResultsInteractorInputProtocol
     var router: SearchResultsRouterInputProtocol
+    var persistance: PersistanceProtocol
     private var offset = 1
     private var size = 20
     private var currentSearchedText = ""
+    private var kPreviosSearchesMaxCount = 10
+
     init(interactor: SearchResultsInteractorInputProtocol,
-         router: SearchResultsRouterInputProtocol) {
+         router: SearchResultsRouterInputProtocol,
+         persistance: PersistanceProtocol) {
         self.interactor = interactor
         self.router = router
-    
+        self.persistance = persistance
+
         self.interactor.presenter = self
     }
 
@@ -39,6 +44,34 @@ final class SearchPresenter: SearchResultsPresenterProtocol {
     
     func handleCellTap(viewModel: SearchItem) {
     }
+    
+    private func saveSearchedItem(_ item: String) {
+        guard !item.isEmpty else {
+            return
+        }
+        if var existingItems = UserDefaults.standard.value(forKey: "recentSearches") as? [PreviousSearchData] {
+            if existingItems.count <= kPreviosSearchesMaxCount {
+                var index = 0
+                var isItemPresent = false
+                for (cIndex, cItem) in existingItems.enumerated() where item == cItem.title {
+                    index = cIndex
+                    isItemPresent = true
+                }
+                if !isItemPresent {
+                    if existingItems.count == kPreviosSearchesMaxCount {
+                        existingItems.removeLast()
+                    }
+                    existingItems.insert(PreviousSearchData(title: item), at: 0)
+                } else if isItemPresent {
+                    existingItems.move(from: index, to: 0)
+                }
+                persistance.set(value: existingItems, for: .recentSearches)
+            }
+        } else {
+            UserDefaults.standard.setValue([PreviousSearchData(title: item)], forKey: "recentSearches")
+            persistance.set(value: [PreviousSearchData(title: item)], for: .recentSearches)
+        }
+    }
 }
 
 extension SearchPresenter: SearchResultsInteractorOutputProtocol {
@@ -46,6 +79,9 @@ extension SearchPresenter: SearchResultsInteractorOutputProtocol {
         if let data = data {
             interface?.setUpView(with: data.photos)
             offset += 1
+            if data.photos.count > 0 {
+                saveSearchedItem(currentSearchedText)
+            }
         }
     }
 
