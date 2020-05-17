@@ -114,6 +114,7 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
         navigationItem.titleView = searchController.searchBar
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.delegate = self
+        searchController.searchBar.searchTextField.clearButtonMode = .never
         definesPresentationContext = true
     }
 
@@ -134,6 +135,9 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
         if dataSource.isEmpty {
             dataSource = data
             collectionView.reloadData()
+            if data.isEmpty {
+                self.presentAlert(withTitle: "No Content found", message: "Try searching something else")
+            }
         } else {
             setUpPaginationData(items: data)
         }
