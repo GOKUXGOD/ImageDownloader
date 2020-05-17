@@ -219,13 +219,6 @@
 			path = ServiceLayer;
 			sourceTree = "<group>";
 		};
-		7D7A97BA2470300200A24BE7 /* Assembly */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Assembly;
-			sourceTree = "<group>";
-		};
 		7D7A97BF247056B100A24BE7 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,7 +276,6 @@
 				7DFE1FDA2470B70D00F078DB /* Common */,
 				7D3A8CBC247142860094EC2C /* DetailScreen */,
 				7DFE1FAD2470AC6B00F078DB /* Persistance */,
-				7D7A97BA2470300200A24BE7 /* Assembly */,
 				7D1A832D24702A04003B930F /* SearchModule */,
 				7D9EC8D92470047E00C1E500 /* NetworkLayer */,
 				7DFE1FD72470B39300F078DB /* Extensions */,

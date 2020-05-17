@@ -24,6 +24,13 @@ private enum ReuseIdentifier: String {
     case cell
 }
 
+fileprivate struct PrivateConstants {
+    static let sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    static let cellSize = CGSize(width: UIScreen.main.bounds.width, height: 40)
+    static let headerSize = CGSize(width: UIScreen.main.bounds.width, height: 50)
+    static let minimumLineSpacing: CGFloat = 0
+}
+
 class RecentSearchesViewController: UICollectionViewController, RecentSearchesInterface {
     var dataSource: [PreviousSearchData] {
         didSet {
@@ -36,11 +43,10 @@ class RecentSearchesViewController: UICollectionViewController, RecentSearchesIn
     init(dataSource: [PreviousSearchData]) {
         self.dataSource = dataSource
         let layout = UICollectionViewFlowLayout()
-        let cellSize = CGSize(width: UIScreen.main.bounds.width, height: 40)
-        layout.itemSize = cellSize
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.minimumLineSpacing = 0
-        layout.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 50)
+        layout.itemSize = PrivateConstants.cellSize
+        layout.sectionInset = PrivateConstants.sectionInset
+        layout.minimumLineSpacing = PrivateConstants.minimumLineSpacing
+        layout.headerReferenceSize = PrivateConstants.headerSize
         super.init(collectionViewLayout: layout)
         registerNibs()
     }

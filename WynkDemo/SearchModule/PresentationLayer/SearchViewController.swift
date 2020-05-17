@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+fileprivate struct PrivateConstants {
+    static let headerOffset: CGFloat = 80
+}
+
 class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
     var presenter: SearchResultsPresenterProtocol
     var recentSearchesView: RecentSearchesInterface
@@ -103,7 +107,7 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
         view.addSubview(recentSearchesViewController.view)
         var constraints = [NSLayoutConstraint]()
         recentSearchesViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        constraints.append(recentSearchesViewController.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 80))
+        constraints.append(recentSearchesViewController.view.topAnchor.constraint(equalTo: view.topAnchor, constant: PrivateConstants.headerOffset))
         constraints.append(recentSearchesViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor))
         constraints.append(recentSearchesViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor))
         constraints.append(recentSearchesViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor))
@@ -323,21 +327,6 @@ extension SearchViewController {
      
     func loadImagesForVisibleCells() {
         let pathsArray = collectionView.indexPathsForVisibleItems
-//        let allPendingOperations = Set(cacheManager.pendingOperations.downloadsInProgress.keys)
-//
-//        var toBeCancelled = allPendingOperations
-//        let visiblePaths = Set(pathsArray)
-//        toBeCancelled.subtract(visiblePaths)
-//
-//        var toBeStarted = visiblePaths
-//        toBeStarted.subtract(allPendingOperations)
-//        for indexPath in toBeCancelled {
-//            if let pendingDownload = pendingOperations.downloadsInProgress[indexPath] {
-//                pendingDownload.cancel()
-//            }
-//
-//            pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)
-//        }
         for indexPath in pathsArray {
             let recordToProcess = dataSource[indexPath.row]
             startOperations(for: recordToProcess, at: indexPath, increasePriority: true)
