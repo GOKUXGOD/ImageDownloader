@@ -51,12 +51,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         container.register(SearchViewModelProtocol.self) { resolver in
-            return SearchViewModel(title: "Search", placeholder: "Search for anything", reuseIdentifier: "SearchCell", numberOfCellsInRow: 3, spaceBetweenCells: 10)
+            var data: [PreviousSearchData] = []
+            let persistance = resolver.resolve(PersistanceProtocol.self)!
+            if let value = persistance.getvalue(for: .recentSearches) {
+                data = value
+            }
+            return SearchViewModel(title: "Search", placeholder: "Search for anything", reuseIdentifier: "SearchCell", numberOfCellsInRow: 3, spaceBetweenCells: 10, persistance: persistance)
         }
 
         container.register(RecentSearchesInterface.self) { resolver in
             var data: [PreviousSearchData] = []
-            if let value = UserDefaults.standard.value(forKey: "recentSearches") as? [PreviousSearchData] {
+            let persistance = resolver.resolve(PersistanceProtocol.self)!
+            if let value = persistance.getvalue(for: .recentSearches) {
                 data = value
             }
             return RecentSearchesViewController(dataSource: data)

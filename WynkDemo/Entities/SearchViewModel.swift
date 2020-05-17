@@ -13,6 +13,7 @@ protocol SearchViewModelProtocol {
     var reuseIdentifier: String { get set }
     var numberOfCellsInRow: Int { get set }
     var spaceBetweenCells: Int { get set }
+    var persistance: PersistanceProtocol { get set }
 }
 
 public struct SearchViewModel: SearchViewModelProtocol {
@@ -21,12 +22,15 @@ public struct SearchViewModel: SearchViewModelProtocol {
     var reuseIdentifier: String
     var numberOfCellsInRow: Int
     var spaceBetweenCells: Int
+    var persistance: PersistanceProtocol
 
-    init(title: String, placeholder: String, reuseIdentifier: String, numberOfCellsInRow: Int, spaceBetweenCells: Int) {
+    init(title: String, placeholder: String, reuseIdentifier: String, numberOfCellsInRow: Int, spaceBetweenCells: Int,
+        persistance: PersistanceProtocol) {
         self.title = title
         self.placeholder = placeholder
         self.reuseIdentifier = reuseIdentifier
         self.numberOfCellsInRow = numberOfCellsInRow
         self.spaceBetweenCells = spaceBetweenCells
+        self.persistance = persistance
     }
 }

@@ -9,8 +9,8 @@
 import Foundation
 
 public protocol PersistanceProtocol {
-    func set<T>(value: T?, for key: PersistanceKey)
-    func getvalue<T>(for key: PersistanceKey) -> T?
+    func set(value: [PreviousSearchData]?, for key: PersistanceKey)
+    func getvalue(for key: PersistanceKey) -> [PreviousSearchData]?
 }
 
 public enum PersistanceKey: String {

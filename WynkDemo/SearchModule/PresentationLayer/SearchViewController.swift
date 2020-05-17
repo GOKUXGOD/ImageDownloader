@@ -53,10 +53,11 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
         self.pendingOperations = pendingOperations
         self.viewModel = viewModel
         self.recentSearchesView = recentSearchesView
-    
+
         super.init(nibName: nil, bundle: nil)
 
         self.presenter.interface = self
+        self.recentSearchesView.delegate = self
         setUpView()
     }
 
@@ -99,7 +100,8 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
     private func setUpRecentSearches() {
         view.addSubview(recentSearchesViewController.view)
         var constraints = [NSLayoutConstraint]()
-        constraints.append(recentSearchesViewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor))
+        recentSearchesViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        constraints.append(recentSearchesViewController.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 80))
         constraints.append(recentSearchesViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor))
         constraints.append(recentSearchesViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor))
         constraints.append(recentSearchesViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor))
@@ -117,6 +119,14 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
 
     private func registerNibs() {
         collectionView.register(SearchResultsCell.self, forCellWithReuseIdentifier: viewModel.reuseIdentifier)
+    }
+
+    private func showRecentSearches() {
+        recentSearchesViewController.view.isHidden = false
+    }
+    
+    private func hideRecentSearches() {
+        recentSearchesViewController.view.isHidden = true
     }
 
     func setUpView(with data: [SearchItem]) {
@@ -142,6 +152,12 @@ class SearchViewController: UIViewController, SearchResultsInterfaceProtocol {
         let endIndex = startIndex + newAssets.count
 
         return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
+    }
+
+    private func perfromSearchFor(text: String) {
+        centerLoader.startAnimating()
+        presenter.searchText(text)
+        hideRecentSearches()
     }
 
     private func startOperations(for searchItem: SearchItem, at indexPath: IndexPath, increasePriority: Bool) {
@@ -198,13 +214,23 @@ extension SearchViewController: UISearchBarDelegate {
         dataSource = []
         collectionView.reloadData()
         pendingOperations.cancelAllOperations()
+        if let searches = viewModel.persistance.getvalue(for: .recentSearches) {
+            recentSearchesView.updateDatasource(searches)
+        }
+        showRecentSearches()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let text = searchBar.text {
-            centerLoader.startAnimating()
-            presenter.searchText(text)
+            perfromSearchFor(text: text)
         }
+    }
+}
+
+extension SearchViewController: RecentSearchesViewDelegate {
+    func didSelectRecentSearch(_ searchItem: PreviousSearchData) {
+        searchController.searchBar.text = searchItem.title
+        perfromSearchFor(text: searchItem.title)
     }
 }
 

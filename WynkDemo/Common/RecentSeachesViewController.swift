@@ -10,8 +10,13 @@ import UIKit
 
 private let reuseIdentifier = "PreviousSearchCell"
 
+public protocol RecentSearchesViewDelegate: class {
+    func didSelectRecentSearch(_ searchItem: PreviousSearchData)
+}
+
 public protocol RecentSearchesInterface {
     var dataSource: [PreviousSearchData] { get set }
+    var delegate: RecentSearchesViewDelegate? { get set }
 
     func updateDatasource(_ value: [PreviousSearchData])
 }
@@ -23,10 +28,17 @@ class RecentSearchesViewController: UICollectionViewController, RecentSearchesIn
         }
     }
 
+    weak var delegate: RecentSearchesViewDelegate?
+
     init(dataSource: [PreviousSearchData]) {
         self.dataSource = dataSource
+        let layout = UICollectionViewFlowLayout()
+        let cellSize = CGSize(width: UIScreen.main.bounds.width, height: 40)
+        layout.itemSize = cellSize
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        layout.minimumLineSpacing = 0
 
-        super.init(nibName: nil, bundle: nil)
+        super.init(collectionViewLayout: layout)
     }
 
     required init?(coder: NSCoder) {
@@ -36,6 +48,8 @@ class RecentSearchesViewController: UICollectionViewController, RecentSearchesIn
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView!.register(PreviousSearchCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.dataSource = self
+        collectionView.delegate = self
     }
 
     func updateDatasource(_ value: [PreviousSearchData]) {
@@ -55,20 +69,13 @@ class RecentSearchesViewController: UICollectionViewController, RecentSearchesIn
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? PreviousSearchCell {
             cell.label.text = dataSource[indexPath.row].title
+            return cell
         }
         fatalError()
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 30)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-            return UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.didSelectRecentSearch(dataSource[indexPath.row])
     }
 }
 

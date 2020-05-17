@@ -14,12 +14,20 @@ public class UserdefaultsHandler: PersistanceProtocol {
         self.persistance = persistance
     }
 
-    public func set<T>(value: T?, for key: PersistanceKey) {
-        persistance.set(value, forKey: key.rawValue)
+   public func set(value: [PreviousSearchData]?, for key: PersistanceKey) {
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(value) {
+            persistance.set(encoded, forKey: key.rawValue)
+        }
     }
 
-    public func getvalue<T>(for key: PersistanceKey) -> T? {
-        let value = persistance.value(forKey: key.rawValue) as? T
-        return value
+    public func getvalue(for key: PersistanceKey) -> [PreviousSearchData]? {
+        if let saved = persistance.object(forKey: key.rawValue) as? Data {
+            let decoder = JSONDecoder()
+            if let loadedItem = try? decoder.decode([PreviousSearchData].self, from: saved) {
+                return loadedItem
+            }
+        }
+        return nil
     }
 }

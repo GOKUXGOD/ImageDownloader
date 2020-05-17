@@ -22,6 +22,7 @@ public enum SearchOperationState {
 
 public protocol SearchResultsInterfaceProtocol: class {
     var presenter: SearchResultsPresenterProtocol { get }
+    // var persistance: PersistanceProtocol { get }
 
     func setUpView(with data: [SearchItem])
 }

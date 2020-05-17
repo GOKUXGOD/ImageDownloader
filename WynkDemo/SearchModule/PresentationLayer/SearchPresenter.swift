@@ -49,7 +49,7 @@ final class SearchPresenter: SearchResultsPresenterProtocol {
         guard !item.isEmpty else {
             return
         }
-        if var existingItems = UserDefaults.standard.value(forKey: "recentSearches") as? [PreviousSearchData] {
+        if var existingItems = persistance.getvalue(for: .recentSearches) {
             if existingItems.count <= kPreviosSearchesMaxCount {
                 var index = 0
                 var isItemPresent = false
@@ -68,7 +68,6 @@ final class SearchPresenter: SearchResultsPresenterProtocol {
                 persistance.set(value: existingItems, for: .recentSearches)
             }
         } else {
-            UserDefaults.standard.setValue([PreviousSearchData(title: item)], forKey: "recentSearches")
             persistance.set(value: [PreviousSearchData(title: item)], for: .recentSearches)
         }
     }
