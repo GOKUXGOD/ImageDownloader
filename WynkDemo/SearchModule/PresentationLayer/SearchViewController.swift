@@ -255,6 +255,7 @@ extension SearchViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter.handleCellTap(currentIndex: indexPath.row, dataArray: dataSource, navigationController: navigationController!)
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

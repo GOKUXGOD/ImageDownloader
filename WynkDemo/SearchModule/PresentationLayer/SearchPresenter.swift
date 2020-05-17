@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class SearchPresenter: SearchResultsPresenterProtocol {
     weak var interface: SearchResultsInterfaceProtocol?
@@ -36,13 +37,11 @@ final class SearchPresenter: SearchResultsPresenterProtocol {
         interactor.performSearchFor(text, offset: offset, size: size)
     }
     
-    func clearDataSource() {
-    }
-    
-    func clearPreviousSearches() {
-    }
-    
-    func handleCellTap(viewModel: SearchItem) {
+    func handleCellTap(currentIndex: Int, dataArray: [SearchItem], navigationController: UINavigationController) {
+        let detailItem = dataArray.map { DetailItem(item: $0) }
+        let detailViewModel = DetailScreenViewModel(photos: detailItem, currentIndex: currentIndex)
+
+        router.showDetailPageFor(viewModel: detailViewModel, navController: navigationController)
     }
     
     private func saveSearchedItem(_ item: String) {

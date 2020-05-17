@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public enum SearchError {
 }
@@ -22,7 +23,6 @@ public enum SearchOperationState {
 
 public protocol SearchResultsInterfaceProtocol: class {
     var presenter: SearchResultsPresenterProtocol { get }
-    // var persistance: PersistanceProtocol { get }
 
     func setUpView(with data: [SearchItem])
 }
@@ -35,9 +35,7 @@ public protocol SearchResultsPresenterProtocol {
     var router: SearchResultsRouterInputProtocol { get }
 
     func searchText(_ text: String)
-    func clearDataSource()
-    func clearPreviousSearches()
-    func handleCellTap(viewModel: SearchItem)
+    func handleCellTap(currentIndex: Int, dataArray: [SearchItem], navigationController: UINavigationController)
 }
 
 // MARK: - Presenter to Interactor
@@ -58,5 +56,5 @@ public protocol SearchResultsInteractorOutputProtocol {
 // MARK: - Presenter to Router
 
 public protocol SearchResultsRouterInputProtocol {
-    var openDetailPage: ((SearchItem) -> Void)? { get set }
+    func showDetailPageFor(viewModel: DetailScreenViewModel, navController: UINavigationController)
 }
